@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Block_Fixed Mesh.tamesh-1f2888785a0c81e7fbf0cb30b732e0de.res"
+
+[deps]
+
+source_file="res://Object/Block/Block_Fixed Mesh.tamesh"
+dest_files=[ "res://.import/Block_Fixed Mesh.tamesh-1f2888785a0c81e7fbf0cb30b732e0de.res" ]
+
+[params]
+

@@ -1,0 +1,63 @@
+Pushing
+
+Between an entity and the entity in front, there are 4 types of relationships
+they can have if the current entity wants to move:
+* Blocking: Neither entity moves
+* Phasing:  The current entity moves. The entity in front doesn't.
+* Forcing:  Both entities move.
+* Rigid:    Both entities move iff the entity in front can move without being squished.
+
+Cases for the current entity:
+* Block:    A block.
+* Pushing:  A non-block entity doing the push.
+* Inactive: Some entity that isn't pushing.
+
+Cases for the entity in front:
+* Pushable
+* Non-pushable
+combined with
+* Block
+* Non-block
+
+Chart of relationships
+         |       Block                  Non-block
+         | Pushable  Non-pushable  Pushable  Non-pushable
+---------+-----------------------------------------------
+Block    | Rigid     Blocking      Forcing   Phasing
+Pushing  | Rigid     Blocking      Phasing   Phasing
+Inactive | Blocking  Blocking      Phasing   Phasing
+
+When calling a function whose name starts with "u_", check for validity
+of the current entity before doing anything else. These functions can
+delete entities.
+
+Events of the game (for ordering purposes)
+
+* Player moves
+* Player punches
+* Baddy / Pushy moves
+* Gravity acts
+
+* Baddy is punched: decrement (or disappear if no counter)
+* Baddy counter = 0: disappear
+* Player & baddy collide: player disappears
+* Player & coin collide: coin decrements (or disappears if no counter), coin is collected
+* Coin counter = 0: disappear
+* Coin collected: coin counter blocks increment neighboring counters
+* Fixed block / spike stepped on: decrement
+* Push block moved (not by gravity): decrement
+
+Level File Format
+
+* Name
+* Grid size
+* Grid map (fixed tiles)
+* Entities
+    * Position
+    * Direction
+    * Gravity
+    * Counter value
+    - Block
+        * Type
+    - Baddy
+        * Type

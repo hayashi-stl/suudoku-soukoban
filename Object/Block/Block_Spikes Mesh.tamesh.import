@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Block_Spikes Mesh.tamesh-6f1717a0c57314f8e7e0ad1fdb7d566f.res"
+
+[deps]
+
+source_file="res://Object/Block/Block_Spikes Mesh.tamesh"
+dest_files=[ "res://.import/Block_Spikes Mesh.tamesh-6f1717a0c57314f8e7e0ad1fdb7d566f.res" ]
+
+[params]
+

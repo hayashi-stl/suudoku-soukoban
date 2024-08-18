@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Block_Push Mesh.tamesh-cb790829478e4f0a76889e07847cc061.res"
+
+[deps]
+
+source_file="res://Object/Block/Block_Push Mesh.tamesh"
+dest_files=[ "res://.import/Block_Push Mesh.tamesh-cb790829478e4f0a76889e07847cc061.res" ]
+
+[params]
+

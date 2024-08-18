@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://LevelSelect.cs" type="Script" id=2]
+[ext_resource path="res://LevelSelectButton.cs" type="Script" id=3]
+[ext_resource path="res://Level/Level One.json" type="Resource" id=4]
+[ext_resource path="res://Level/TestLevel Test.json" type="Resource" id=5]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 225
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 41
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[node name="Level Select" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_top = 48.0
+margin_bottom = 471.0
+theme = SubResource( 1 )
+custom_constants/line_separation = -49
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]SUUDOKU[/center]
+[center]SOUKOBAN[/center]"
+text = "SUUDOKU
+SOUKOBAN"
+scroll_active = false
+
+[node name="Button" type="Button" parent="."]
+margin_left = 504.0
+margin_top = 504.0
+margin_right = 952.0
+margin_bottom = 568.0
+theme = SubResource( 5 )
+text = "One"
+script = ExtResource( 3 )
+Level = ExtResource( 4 )
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 504.0
+margin_top = 609.0
+margin_right = 952.0
+margin_bottom = 673.0
+theme = SubResource( 5 )
+text = "Test"
+script = ExtResource( 3 )
+Level = ExtResource( 5 )

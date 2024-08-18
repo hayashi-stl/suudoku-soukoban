@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Block_Exit Frame Mesh.tamesh-a72036439347d8ef8b6aaacfc17140ca.res"
+
+[deps]
+
+source_file="res://Object/Block/Block_Exit Frame Mesh.tamesh"
+dest_files=[ "res://.import/Block_Exit Frame Mesh.tamesh-a72036439347d8ef8b6aaacfc17140ca.res" ]
+
+[params]
+

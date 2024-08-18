@@ -1,0 +1,664 @@
+<!DOCTYPE qtractorSession>
+<session name="SFX" version="Qtractor 0.9.39 [HEAD]">
+ <properties>
+  <directory>/home/hayastl/Discrete Decrement/Intermediate/Sound/SFX</directory>
+  <description></description>
+  <sample-rate>44100</sample-rate>
+  <tempo>125</tempo>
+  <ticks-per-beat>960</ticks-per-beat>
+  <beats-per-bar>4</beats-per-bar>
+  <beat-divisor>2</beat-divisor>
+ </properties>
+ <state>
+  <loop-start>0</loop-start>
+  <loop-end>11226</loop-end>
+  <punch-in>0</punch-in>
+  <punch-out>0</punch-out>
+ </state>
+ <files>
+  <audio-list>
+   <file name="Swoosh_2.wav">Swoosh_2.wav</file>
+   <file name="Swooshes_3.wav">Swooshes_3.wav</file>
+   <file name="Move.wav">../../../Object/Move.wav</file>
+   <file name="Bumps_2.wav">Bumps_2.wav</file>
+   <file name="Bump.wav">../../../Object/Bump.wav</file>
+   <file name="Punches_2.wav">Punches_2.wav</file>
+   <file name="Punch.wav">../../../Object/Punch.wav</file>
+   <file name="Swishes.wav">Swishes.wav</file>
+   <file name="Poofs.wav">Poofs.wav</file>
+   <file name="Poof.wav">../../../Object/Poof.wav</file>
+   <file name="Squishes.wav">Squishes.wav</file>
+   <file name="Squishes_2.wav">Squishes_2.wav</file>
+   <file name="Squish.wav">../../../Object/Squish.wav</file>
+   <file name="Swishes_2.wav">Swishes_2.wav</file>
+   <file name="15 Howling wind.wav">../../../../Downloads/15 Howling wind.wav</file>
+   <file name="Swish.wav">../../../Object/Swish.wav</file>
+   <file name="Deflate.ogg">Deflate.ogg</file>
+   <file name="Deflate 2.ogg">Deflate 2.ogg</file>
+   <file name="Swing.ogg">Swing.ogg</file>
+   <file name="Swing 2.ogg">Swing 2.ogg</file>
+   <file name="PunchSwing.wav">../../../Object/PunchSwing.wav</file>
+   <file name="Collect.wav">../../../Object/Coin/Collect.wav</file>
+   <file name="Coin Collect.ogg">Coin Collect.ogg</file>
+  </audio-list>
+  <midi-list/>
+ </files>
+ <devices>
+  <audio-engine>
+   <audio-control>
+    <transport-mode>duplex</transport-mode>
+    <timebase>1</timebase>
+   </audio-control>
+   <audio-bus name="Master" mode="duplex">
+    <monitor>0</monitor>
+    <channels>2</channels>
+    <auto-connect>1</auto-connect>
+    <input-gain>0.000316228</input-gain>
+    <input-panning>0</input-panning>
+    <input-controllers/>
+    <input-plugins/>
+    <input-connects>
+     <connect index="0">
+      <client>system</client>
+      <port>capture_1</port>
+     </connect>
+     <connect index="1">
+      <client>system</client>
+      <port>capture_2</port>
+     </connect>
+    </input-connects>
+    <output-gain>1</output-gain>
+    <output-panning>0</output-panning>
+    <output-controllers/>
+    <output-plugins/>
+    <output-connects>
+     <connect index="0">
+      <client>system</client>
+      <port>playback_1</port>
+     </connect>
+     <connect index="1">
+      <client>system</client>
+      <port>playback_2</port>
+     </connect>
+    </output-connects>
+   </audio-bus>
+  </audio-engine>
+  <midi-engine>
+   <midi-control>
+    <mmc-mode>duplex</mmc-mode>
+    <mmc-device>127</mmc-device>
+    <spp-mode>duplex</spp-mode>
+    <clock-mode>none</clock-mode>
+   </midi-control>
+   <midi-bus name="Master" mode="duplex">
+    <monitor>0</monitor>
+    <input-gain>1</input-gain>
+    <input-panning>0</input-panning>
+    <input-controllers/>
+    <input-plugins>
+     <audio-output-bus>0</audio-output-bus>
+     <audio-output-auto-connect>1</audio-output-auto-connect>
+    </input-plugins>
+    <input-connects/>
+    <output-gain>1</output-gain>
+    <output-panning>0</output-panning>
+    <output-controllers/>
+    <output-plugins>
+     <audio-output-bus>0</audio-output-bus>
+     <audio-output-auto-connect>1</audio-output-auto-connect>
+    </output-plugins>
+    <output-connects/>
+    <midi-map>
+     <midi-patch channel="0">
+      <midi-bank-sel-method>0</midi-bank-sel-method>
+     </midi-patch>
+    </midi-map>
+   </midi-bus>
+  </midi-engine>
+ </devices>
+ <tracks>
+  <view>
+   <pixels-per-beat>32</pixels-per-beat>
+   <horizontal-zoom>620</horizontal-zoom>
+   <vertical-zoom>100</vertical-zoom>
+   <snap-per-beat>0</snap-per-beat>
+   <edit-head>0</edit-head>
+   <edit-tail>11226</edit-tail>
+  </view>
+  <track name="Track 1" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#ccffff</background-color>
+    <foreground-color>#667f7f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Deflate 2">
+     <properties>
+      <name>Deflate 2</name>
+      <start>293852</start>
+      <offset>275291</offset>
+      <length>52124</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Deflate 2.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+    <clip name="Deflate 2">
+     <properties>
+      <name>Deflate 2</name>
+      <start>345976</start>
+      <offset>327415</offset>
+      <length>65990</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Deflate 2.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins/>
+  </track>
+  <track name="Punch Swing" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#9999ff</background-color>
+    <foreground-color>#4c4c7f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Swing 2">
+     <properties>
+      <name>Swing 2</name>
+      <start>0</start>
+      <offset>12116</offset>
+      <length>11226</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Swing 2.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins/>
+  </track>
+  <track name="Move" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#99ffff</background-color>
+    <foreground-color>#4c7f7f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Swooshes_3">
+     <properties>
+      <name>Swooshes_3</name>
+      <start>0</start>
+      <offset>88592</offset>
+      <length>14079</length>
+      <gain>10</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Swooshes_3.wav</filename>
+      <time-stretch>0.5</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins>
+    <plugin type="LV2">
+     <filename>http://calf.sourceforge.net/plugins/Filter</filename>
+     <index>0</index>
+     <label>Calf_Filter</label>
+     <preset></preset>
+     <direct-access-param>-1</direct-access-param>
+     <activated>1</activated>
+     <configs/>
+     <params>
+      <param name="Output Gain" index="10">1</param>
+      <param name="Resonance" index="5">0.707</param>
+      <param name="Frequency" index="4">3353.51</param>
+      <param name="Inertia" index="7">20</param>
+      <param name="Mode" index="6">6</param>
+      <param name="Input Gain" index="9">1</param>
+      <param name="Bypass" index="8">0</param>
+     </params>
+     <controllers/>
+     <editor-pos>591,380</editor-pos>
+     <form-pos>0,0</form-pos>
+    </plugin>
+   </plugins>
+  </track>
+  <track name="Bump" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#ffccff</background-color>
+    <foreground-color>#7f667f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Bumps_2">
+     <properties>
+      <name>Bumps_2</name>
+      <start>0</start>
+      <offset>142930</offset>
+      <length>13269</length>
+      <gain>1.99526</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Bumps_2.wav</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins/>
+  </track>
+  <track name="Punch" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#ccccff</background-color>
+    <foreground-color>#66667f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Punches_2">
+     <properties>
+      <name>Punches_2</name>
+      <start>0</start>
+      <offset>140176</offset>
+      <length>13781</length>
+      <gain>3.16228</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Punches_2.wav</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins/>
+  </track>
+  <track name="Poof" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#99ccff</background-color>
+    <foreground-color>#4c667f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Poofs">
+     <properties>
+      <name>Poofs</name>
+      <start>0</start>
+      <offset>72081</offset>
+      <length>20264</length>
+      <gain>3.16228</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Poofs.wav</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>0.890899</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins>
+    <plugin type="LV2">
+     <filename>http://calf.sourceforge.net/plugins/Filter</filename>
+     <index>0</index>
+     <label>Calf_Filter</label>
+     <preset></preset>
+     <direct-access-param>-1</direct-access-param>
+     <activated>1</activated>
+     <configs/>
+     <params>
+      <param name="Output Gain" index="10">1</param>
+      <param name="Resonance" index="5">0.707</param>
+      <param name="Frequency" index="4">1229.6</param>
+      <param name="Inertia" index="7">20</param>
+      <param name="Mode" index="6">6</param>
+      <param name="Input Gain" index="9">1</param>
+      <param name="Bypass" index="8">0</param>
+     </params>
+     <controllers/>
+     <editor-pos>591,380</editor-pos>
+     <form-pos>0,0</form-pos>
+    </plugin>
+   </plugins>
+  </track>
+  <track name="Squish" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>0.290284</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#ff99ff</background-color>
+    <foreground-color>#7f4c7f</foreground-color>
+   </view>
+   <controllers/>
+   <curve-file>
+    <curve-items>
+     <curve-item name="Squish ゲイン" mode="Linear" index="2">
+      <type>CONTROLLER</type>
+      <channel>0</channel>
+      <param>7</param>
+      <mode>Linear</mode>
+      <process>1</process>
+      <capture>0</capture>
+      <locked>0</locked>
+      <logarithmic>1</logarithmic>
+      <color>#800000</color>
+     </curve-item>
+    </curve-items>
+    <filename>SFX-Squish_curve-30.mid</filename>
+    <current>2</current>
+   </curve-file>
+   <clips>
+    <clip name="Deflate 2">
+     <properties>
+      <name>Deflate 2</name>
+      <start>0</start>
+      <offset>275291</offset>
+      <length>18894</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Deflate 2.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>0.840896</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins>
+    <plugin type="LV2">
+     <filename>http://calf.sourceforge.net/plugins/Filter</filename>
+     <index>0</index>
+     <label>Calf_Filter</label>
+     <preset></preset>
+     <direct-access-param>-1</direct-access-param>
+     <activated>1</activated>
+     <configs/>
+     <params>
+      <param name="Output Gain" index="10">1</param>
+      <param name="Resonance" index="5">0.707</param>
+      <param name="Frequency" index="4">2000</param>
+      <param name="Inertia" index="7">20</param>
+      <param name="Mode" index="6">3</param>
+      <param name="Input Gain" index="9">1</param>
+      <param name="Bypass" index="8">0</param>
+     </params>
+     <controllers/>
+     <curve-file/>
+     <editor-pos>591,380</editor-pos>
+     <form-pos>0,0</form-pos>
+    </plugin>
+   </plugins>
+  </track>
+  <track name="Swish" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>0</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#cc99ff</background-color>
+    <foreground-color>#664c7f</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Swing">
+     <properties>
+      <name>Swing</name>
+      <start>0</start>
+      <offset>0</offset>
+      <length>13313</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Swing.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins/>
+  </track>
+  <track name="Coin Collect" type="audio">
+   <properties>
+    <input-bus>Master</input-bus>
+    <output-bus>Master</output-bus>
+   </properties>
+   <state>
+    <mute>0</mute>
+    <solo>1</solo>
+    <record>0</record>
+    <monitor>0</monitor>
+    <gain>1</gain>
+    <panning>0</panning>
+   </state>
+   <view>
+    <height>96</height>
+    <background-color>#ffffcc</background-color>
+    <foreground-color>#7f7f66</foreground-color>
+   </view>
+   <controllers/>
+   <clips>
+    <clip name="Collect">
+     <properties>
+      <name>Collect</name>
+      <start>0</start>
+      <offset>0</offset>
+      <length>8266</length>
+      <gain>1</gain>
+      <panning>0</panning>
+      <fade-in type="InQuad">0</fade-in>
+      <fade-out type="OutQuad">0</fade-out>
+     </properties>
+     <audio-clip>
+      <filename>Coin Collect.ogg</filename>
+      <time-stretch>1</time-stretch>
+      <pitch-shift>1</pitch-shift>
+      <wsola-time-stretch>1</wsola-time-stretch>
+      <wsola-quick-seek>0</wsola-quick-seek>
+     </audio-clip>
+    </clip>
+   </clips>
+   <plugins>
+    <plugin type="LV2">
+     <filename>http://calf.sourceforge.net/plugins/Filter</filename>
+     <index>0</index>
+     <label>Calf_Filter</label>
+     <preset></preset>
+     <direct-access-param>-1</direct-access-param>
+     <activated>1</activated>
+     <configs/>
+     <params>
+      <param name="Output Gain" index="10">1</param>
+      <param name="Resonance" index="5">0.707</param>
+      <param name="Frequency" index="4">2000</param>
+      <param name="Inertia" index="7">20</param>
+      <param name="Mode" index="6">0</param>
+      <param name="Input Gain" index="9">1</param>
+      <param name="Bypass" index="8">0</param>
+     </params>
+     <controllers/>
+     <editor-pos>591,380</editor-pos>
+     <form-pos>0,0</form-pos>
+    </plugin>
+    <plugin type="LV2">
+     <filename>http://calf.sourceforge.net/plugins/Analyzer</filename>
+     <index>0</index>
+     <label>Calf_Analyzer</label>
+     <preset></preset>
+     <direct-access-param>-1</direct-access-param>
+     <activated>1</activated>
+     <configs/>
+     <params>
+      <param name="Analyzer Post FFT" index="11">0</param>
+      <param name="Gonio Display" index="24">1</param>
+      <param name="Analyzer Scale" index="10">0</param>
+      <param name="Analyzer Smoothing" index="13">1</param>
+      <param name="Analyzer View" index="12">1</param>
+      <param name="Analyzer Accuracy" index="15">7</param>
+      <param name="Analyzer Windowing" index="14">2</param>
+      <param name="Analyzer Display" index="17">1</param>
+      <param name="Analyzer Speed" index="16">15</param>
+      <param name="Analyzer Freeze" index="19">0</param>
+      <param name="Analyzer Hold" index="18">0</param>
+      <param name="Gonio Fade Active" index="21">1</param>
+      <param name="Gonio Mode" index="20">1</param>
+      <param name="Gonio Accuracy" index="23">4</param>
+      <param name="Analyzer Mode" index="9">0</param>
+      <param name="Gonio Fade" index="22">0.5</param>
+      <param name="Analyzer Level" index="8">1.25</param>
+     </params>
+     <controllers/>
+     <editor-pos>447,351</editor-pos>
+     <form-pos>0,0</form-pos>
+    </plugin>
+   </plugins>
+  </track>
+ </tracks>
+</session>
+

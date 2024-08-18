@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://Object/Player/Player.glsl.gdshader" type="Shader" id=1]
+[ext_resource path="res://Object/Player/Player Mesh.taimage" type="Texture" id=2]
+[ext_resource path="res://Object/Player/Player Decal.png" type="Texture" id=3]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/base_albedo = Color( 0, 0.556863, 1, 1 )
+shader_param/base_metallic = 0.0
+shader_param/base_roughness = 0.5
+shader_param/base_emission = Color( 0, 0, 0, 1 )
+shader_param/rig_transform_00 = Transform2D( 1, 0, 0, 1, 0, 0 )
+shader_param/rig_transform_01 = Transform2D( 1, 0, 0, 1, -9, -3 )
+shader_param/rig_transform_02 = Transform2D( 1, 0, 0, 1, 9, -3 )
+shader_param/rig_transform_03 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_04 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_05 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_06 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_07 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_08 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_09 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_10 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_11 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_12 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_13 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_14 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/rig_transform_15 = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shader_param/attributes = ExtResource( 2 )
+shader_param/texture_albedo_decal = ExtResource( 3 )

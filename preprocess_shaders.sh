@@ -1,0 +1,1 @@
+find . \( -path ./Include -prune -o -name "*.glsl" \) -type f -execdir g++ -E -x c++ -undef -P -o "{}.gdshader" "{}" \;

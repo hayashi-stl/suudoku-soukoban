@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Player Mesh.tamesh-61bb3ba716c570682e00991698e7d823.res"
+
+[deps]
+
+source_file="res://Object/Player/Player Mesh.tamesh"
+dest_files=[ "res://.import/Player Mesh.tamesh-61bb3ba716c570682e00991698e7d823.res" ]
+
+[params]
+

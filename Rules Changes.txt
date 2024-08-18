@@ -1,0 +1,9 @@
+Hmm, I'm thinking of changing the priority rules in my game a bit to simplify things and make way for future mechanics, so the steps look like this:
+* Movement
+* Gravity (falling in holes and such)
+* Counters change in response to movement
+And every time there's a response to a counter changing, a whole [movement → gravity → counter response] sequence plays accounting for all responses to the current counter response.
+(Currently, there's a counter response to each individual object moving)
+
+However, doing this makes it tricky to enforce rules that depend on a counter's value (e.g, a block can't move if its counter is 0). There's also the problem of the player
+

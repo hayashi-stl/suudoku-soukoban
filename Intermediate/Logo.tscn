@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Object/Block/Block.tscn" type="PackedScene" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 225
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 80
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Title" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_top = 48.0
+margin_right = 1920.0
+margin_bottom = 260.0
+theme = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Decrement[/center]"
+text = "Decrement"
+scroll_active = false
+
+[node name="Title2" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_top = 280.0
+margin_right = 1920.0
+margin_bottom = 492.0
+theme = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]all counters to[/center]"
+text = "all counters to"
+scroll_active = false
+
+[node name="Block" parent="." instance=ExtResource( 2 )]
+position = Vector2( 640, 320 )
+scale = Vector2( 2, 2 )
+CounterEnabled = false
+
+[node name="Block2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1280, 320 )
+scale = Vector2( 2, 2 )
+CounterNumber = 0

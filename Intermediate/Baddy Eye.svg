@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="128"
+   height="256"
+   viewBox="0 0 33.866666 67.733335"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   inkscape:export-filename="../Object/Baddy/Baddy Blink Diffuse.png"
+   inkscape:export-xdpi="95.9"
+   inkscape:export-ydpi="95.9"
+   sodipodi:docname="Baddy Eye.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#a5a5a5"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="63.75"
+     inkscape:cy="117"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#cb00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.254;stroke-linecap:square"
+       id="rect5"
+       width="33.866669"
+       height="67.733337"
+       x="1.3269329e-08"
+       y="2.6538657e-08" />
+    <ellipse
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.254;stroke-linecap:square"
+       id="path1"
+       cx="16.933332"
+       cy="33.866665"
+       rx="7.6389413"
+       ry="14.566187" />
+    <ellipse
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.254;stroke-linecap:square"
+       id="ellipse1"
+       cx="16.933332"
+       cy="33.866665"
+       rx="4.5617232"
+       ry="4.5411572" />
+    <path
+       style="fill:#cb00ff;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 8.4666662,16.933332 H 25.399998 L 8.4666662,27.02133 Z"
+       id="path5" />
+    <rect
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1.93475;stroke-linecap:round"
+       id="rect1"
+       width="16.889578"
+       height="3.4196134"
+       x="8.4885435"
+       y="32.15686" />
+  </g>
+</svg>

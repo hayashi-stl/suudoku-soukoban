@@ -1,0 +1,13 @@
+[remap]
+
+importer="tamesh"
+type="Mesh"
+path="res://.import/Player Outline Mesh.tamesh-e4c2f65a97238f8183a475d5f0e45738.res"
+
+[deps]
+
+source_file="res://Object/Player/Player Outline Mesh.tamesh"
+dest_files=[ "res://.import/Player Outline Mesh.tamesh-e4c2f65a97238f8183a475d5f0e45738.res" ]
+
+[params]
+

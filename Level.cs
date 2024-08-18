@@ -683,6 +683,13 @@ public partial class Level : Node2D
         return new Rect2I(_levelFile.Base.x, _levelFile.Base.y, _levelFile.Size.x, _levelFile.Size.y);
     }
 
+    public static void DoBorders(TileMap regionMap, TileMap horzBorders, TileMap vertBorders) {
+        horzBorders.Clear();
+        vertBorders.Clear();
+
+        var map = regionMap.GetUsedCells().Cast<Vector2>().ToDictionary(v => (Vector2I)v, v => regionMap.GetCell((int)v.x, (int)v.y));
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         _buttons = Enumerable.Range(0, GameButton.NumActions).Select(i => null as GameButton).ToList();
@@ -728,7 +735,15 @@ public partial class Level : Node2D
                         var ent = new Entity.Fixed(Global.Instance(this).NextEntityID(), cellPosition);
                         AddEntity(ent, cellPosition);
                     }
+
+                    // Invalid is out-of-bounds
+                    if (z == 1 && cell == LevelFile.FileTile.Invalid && _levelFile.Map[lowerCellIndex] == LevelFile.FileTile.Invalid) {
+                        var ent = new Entity.Fixed(Global.Instance(this).NextEntityID(), cellPosition);
+                        AddEntity(ent, cellPosition);
+                    }
                 }
+
+        DoBorders(_regionMap, GetNode<TileMap>("LineHorzMap"), GetNode<TileMap>("LineVertMap"));
 
         LoadInEntities(false);
     }

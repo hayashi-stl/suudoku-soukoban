@@ -116,20 +116,9 @@ public class Maker : Node2D
         };
     }
 
-    void UpdateTileOutlines(TileMap map, TileMap outline)
-    {
-        var mapCells = map.GetUsedCells().Cast<Vector2>().Select(x => (Vector2I)x).ToHashSet();
-        var outlineCells = outline.GetUsedCells().Cast<Vector2>().Select(x => (Vector2I)x).ToHashSet();
-        var added = mapCells.Where(x => !outlineCells.Contains(x)).ToList();
-        var removed = outlineCells.Where(x => !mapCells.Contains(x)).ToList();
-        foreach (var cell in added)
-            outline.SetCell(cell.x, cell.y, 0);
-        foreach (var cell in removed)
-            outline.SetCell(cell.x, cell.y, -1);
-    }
-
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        Level.DoBorders(_map, GetNode<TileMap>("LineHorzMap"), GetNode<TileMap>("LineVertMap"));
     }
 }

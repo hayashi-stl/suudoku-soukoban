@@ -84,6 +84,10 @@ public class LevelFile
         };
     }
 
+    public static bool IsPlayTileFloor(PlayTile t) {
+        return t >= PlayTile.FirstFloor && (int)t < (int)PlayTile.FirstFloor + (int)PlayTile.NumFloors;
+    }
+
 
     public class Vector3IJsonConverter : JsonConverter<Vector3I>
     {

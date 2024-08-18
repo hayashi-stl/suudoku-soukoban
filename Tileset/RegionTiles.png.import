@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LineVert.png-49bf3cd8d66fad59ce68fb2ab75f59c8.stex"
+path="res://.import/RegionTiles.png-ee336aa3b495591029c9d9ab8f5e1ca9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tileset/LineVert.png"
-dest_files=[ "res://.import/LineVert.png-49bf3cd8d66fad59ce68fb2ab75f59c8.stex" ]
+source_file="res://Tileset/RegionTiles.png"
+dest_files=[ "res://.import/RegionTiles.png-ee336aa3b495591029c9d9ab8f5e1ca9.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

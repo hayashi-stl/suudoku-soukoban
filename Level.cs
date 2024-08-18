@@ -687,7 +687,36 @@ public partial class Level : Node2D
         horzBorders.Clear();
         vertBorders.Clear();
 
-        var map = regionMap.GetUsedCells().Cast<Vector2>().ToDictionary(v => (Vector2I)v, v => regionMap.GetCell((int)v.x, (int)v.y));
+        var map = regionMap.GetUsedCells().Cast<Vector2>().ToDictionary(v => (Vector2I)v, v => (LevelFile.PlayTile)regionMap.GetCell((int)v.x, (int)v.y));
+        var mapOffsetHorz = map.ToDictionary(pair => pair.Key + Vector2I.Right, pair => pair.Value);
+        var mapOffsetVert = map.ToDictionary(pair => pair.Key + Vector2I.Down, pair => pair.Value);
+
+        for (int i = 0; i < 2; ++i) {
+            var mapOffset = i == 0 ? mapOffsetHorz : mapOffsetVert;
+            var borders = i == 0 ? vertBorders : horzBorders;
+            var vecScale = i == 0 ? new Vector2I(2, 1) : new Vector2I(1, 2);
+            var vecOffset = i == 0 ? new Vector2I(-1, 0) : new Vector2I(0, -1);
+            var cells = map.Keys.Concat(mapOffset.Keys).ToHashSet();
+
+            foreach (var cell in cells) {
+                var region = Util.GetOr(map, cell, LevelFile.PlayTile.Invalid);
+                var region2 = Util.GetOr(mapOffset, cell, LevelFile.PlayTile.Invalid);
+                var value = TileMap.InvalidCell;
+
+                if (region != region2) {
+                    value = 0;
+                } else if (LevelFile.IsPlayTileFloor(region)) {
+                    value = 2;
+                }
+
+                if (value != TileMap.InvalidCell) {
+                    var borderCell = cell * vecScale + vecOffset;
+                    borders.SetCell(borderCell.x, borderCell.y, value);
+                    borderCell = cell * vecScale;
+                    borders.SetCell(borderCell.x, borderCell.y, value + 1);
+                }
+            }
+        }
     }
 
     // Called when the node enters the scene tree for the first time.

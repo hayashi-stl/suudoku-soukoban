@@ -82,6 +82,12 @@ public partial class Util : Node
         return hasValue;
     }
 
+    public static V GetOr<K, V>(Dictionary<K, V> dict, K key, V @default) {
+        if (dict.TryGetValue(key, out var value))
+            return value;
+        return @default;
+    }
+
     public static List<T> ToList<T>(Godot.Collections.Array array) {
         List<T> list = new List<T>();
         foreach (var value in array)

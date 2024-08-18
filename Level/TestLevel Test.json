@@ -29,6 +29,46 @@
       "CustomData": {
         "$Type": "Player"
       }
+    },
+    {
+      "Position": [5, 3, 1],
+      "Direction": [-1, 0, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [5, 2, 1],
+      "Direction": [1, 0, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [7, 5, 1],
+      "Direction": [1, 0, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [7, 4, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
     }
   ]
 }

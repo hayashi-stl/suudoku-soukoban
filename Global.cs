@@ -32,9 +32,6 @@ public partial class Global : Node
         public static readonly PackedScene Stage = GD.Load<PackedScene>("res://Stage.tscn");
         public static readonly PackedScene Level = GD.Load<PackedScene>("res://Level/Level.tscn");
         public static readonly PackedScene LevelSelect = GD.Load<PackedScene>("res://LevelSelect.tscn");
-
-        public static readonly PackedScene MeshTilemap = GD.Load<PackedScene>("res://Tileset/MeshTilemap.tscn");
-        public static readonly PackedScene MeshTile = GD.Load<PackedScene>("res://Tileset/MeshTile.tscn");
     }
 
     public class Tileset {

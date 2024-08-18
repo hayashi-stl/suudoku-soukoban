@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player Decal.png-9b9c1ef07d1e642b1774468ba0f3fa3b.stex"
+path="res://.import/Block_Push.png-838545bdcfb09e1859428fdde5547970.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Object/Player/Player Decal.png"
-dest_files=[ "res://.import/Player Decal.png-9b9c1ef07d1e642b1774468ba0f3fa3b.stex" ]
+source_file="res://Object/Block/Block_Push.png"
+dest_files=[ "res://.import/Block_Push.png-838545bdcfb09e1859428fdde5547970.stex" ]
 
 [params]
 

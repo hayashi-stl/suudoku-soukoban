@@ -4,7 +4,7 @@ using System;
 [Tool]
 public partial class Player : EntityNode2D
 {
-    MeshInstance2D _activeMesh;
+    Sprite _activeVisual;
 
     public override Entity LevelEntity(int id) {
         return new Ent(id, this);
@@ -23,7 +23,7 @@ public partial class Player : EntityNode2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         PrepareCommon();
-        _activeMesh = GetNode<MeshInstance2D>("%Player");
+        _activeVisual = GetNode<Sprite>("%Player");
     }
 
 

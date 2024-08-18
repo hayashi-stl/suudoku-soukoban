@@ -11,8 +11,8 @@ public partial class Block : EntityNode2D
         Push,
     }
 
-    Sprite _activeOutline;
-    List<MeshInstance2D> _activeMeshes = new List<MeshInstance2D>();
+    List<Sprite> _activeVisuals = new List<Sprite>();
+    Yuu _yuu;
 
             
     BlockType _type = BlockType.Push;
@@ -26,21 +26,17 @@ public partial class Block : EntityNode2D
         }
     }
 
-    float _flashFactor = 0.0f;
-    float FlashFactor {
-        get => _flashFactor;
+    bool _hasYuu;
+    [Export]
+    public bool HasYuu {
+        get => _hasYuu;
         set {
-            _flashFactor = value;
+            _hasYuu = value;
             if (_ready)
                 UpdateTexture();
         }
     }
-
-    float _exitAnimValue = 0.0f;
-    const float ExitSwirlSpeed = 1.0f;
-    const float ExitFlowSpeed = 0.5f;
-
-    public override float WallLayerScale => 0.75f;
+    
 
     public override Entity LevelEntity(int id) {
         return new Ent(id, this);
@@ -48,29 +44,28 @@ public partial class Block : EntityNode2D
         
 	public override LevelFile.EntityCustomData LevelEntityCustomParams() {
         return new LevelFile.BlockFile {
-            Type = Type
+            Type = Type,
+            HasYuu = HasYuu,
         };
     }
         
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        _activeOutline = GetNode<Sprite>("%FixedOutline");
-        _activeMeshes = new List<MeshInstance2D>(){ GetNode<MeshInstance2D>("%Fixed") };
+        _activeVisuals = new List<Sprite>(){ GetNode<Sprite>("%Push") };
+        _yuu = GetNode<Yuu>("%Yuu");
         PrepareCommon();
         UpdateTexture();
     }
 
     protected override void UpdateTexture() {
-        _activeOutline.Visible = false;
-        _activeMeshes.ForEach(m => m.Visible = false);
-        var (outlineName, meshNames) = Type switch {
-            BlockType.Push => ("%PushOutline", new List<string>(){ "%Push" }),
+        _activeVisuals.ForEach(m => m.Visible = false);
+        var visualNames = Type switch {
+            BlockType.Push => new List<string>(){ "%Push" },
             _ => throw new InvalidEnumArgumentException()
         };
-        _activeOutline = GetNode<Sprite>(outlineName);
-        _activeMeshes = meshNames.Select(m => GetNode<MeshInstance2D>(m)).ToList();
-        _activeOutline.Visible = true;
-        _activeMeshes.ForEach(m => m.Visible = true);
+        _activeVisuals = visualNames.Select(m => GetNode<Sprite>(m)).ToList();
+        _activeVisuals.ForEach(m => m.Visible = true);
+        _yuu.Visible = HasYuu;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,21 +78,15 @@ public partial class Block : EntityNode2D
     }
 
     public override void OnSteppedOn() {
-        FlashFactor = 1.0f;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "FlashFactor", 0.0f, 0.1f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
     }
 
-    public override void OnEntered()
-    {
-        FlashFactor = 0.5f;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "FlashFactor", 0.0f, Stage.EnterLevelTweenTime).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+    public override void OnEntered() {
     }
 
     public static EntityNode2D SpawnNode(LevelFile.BlockFile file) {
         var scene = Global.Scene.Block.Instance<Block>();
         scene.Type = file.Type;
+        scene.HasYuu = file.HasYuu;
         return scene;
     }
             
@@ -121,11 +110,13 @@ public partial class Block : EntityNode2D
             
         public override bool IsPushable(Vector3I dir) => !IsFixed();
             
+        public override IEnumerable<Yuu> Yuus => Enumerable.Repeat(ThisNode._yuu, ThisNode.HasYuu ? 1 : 0);
         public override EntityDef Def
         {
             get => 
                 new EntityDef(Id, this, new LevelFile.BlockFile{
-                    Type = ThisNode.Type
+                    Type = ThisNode.Type,
+                    HasYuu = ThisNode.HasYuu,
                 });
         }
     }

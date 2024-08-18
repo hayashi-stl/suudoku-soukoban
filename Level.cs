@@ -127,9 +127,33 @@ public partial class Level : Node2D
     }
             
     class UndoStack {
-        readonly List<Action> _actions = new List<Action>();
-        readonly Stack<BatchAction> _batched = new Stack<BatchAction>();
+        List<Action> _actions = new List<Action>();
+        List<BatchAction> _batched = new List<BatchAction>();
+        UndoStack _next = null; // for trying an action and seeing if it works
         
+        public void PushStack() {
+            _next = new UndoStack();
+            _next._actions = _actions;
+            _next._batched = _batched;
+            _actions = new List<Action>();
+            _batched = new List<BatchAction>();
+        }
+
+        public void DropStack(Level level) {
+            UndoAll(level);
+            _actions = _next._actions;
+            _batched = _next._batched;
+            _next = _next._next;
+        }
+
+        public void MergeStack(Level level) {
+            _next._actions.AddRange(_actions);
+            _next._batched.AddRange(_batched);
+            _actions = _next._actions;
+            _batched = _next._batched;
+            _next = _next._next;
+        }
+
         public void Add(Action action) {
             _actions.Add(action);
         }
@@ -140,14 +164,18 @@ public partial class Level : Node2D
             
         public void Batch(BatchAction.Tag tag = BatchAction.Tag.None) {
             if (_actions.Count > 0) {
-                _batched.Push(new BatchAction(_actions, tag));
+                _batched.Add(new BatchAction(_actions, tag));
                 _actions.Clear();
             }
         }
             
         public void Undo(Level level) {
-            var exists = Util.TryPop(_batched, out var action);
-            if (exists)
+            if (Util.TryPop(_batched, out var action))
+                action.Do(level);
+        }
+
+        public void UndoAll(Level level) {
+            while (Util.TryPop(_batched, out var action))
                 action.Do(level);
         }
 
@@ -156,7 +184,7 @@ public partial class Level : Node2D
         public BatchAction.Tag? TopBatchActionTag() {
             if (_actions.Count > 0 || _batched.Count == 0)
                 return null;
-            return _batched.Peek().Tag_;
+            return _batched.Last().Tag_;
         }
     }
 
@@ -401,6 +429,11 @@ public partial class Level : Node2D
             Entries[entry.Key] = entry;
         }
 
+        public void AddRange(TweenGroup other) {
+            foreach (var e in other.Entries)
+                Add(e.Value);
+        }
+
         public void Clear() {
             Entries.Clear();
         }
@@ -417,7 +450,30 @@ public partial class Level : Node2D
         TweenGroup _currGroup = new TweenGroup();
         float _totalTweenTime;
         List<SceneTreeTween> _tweens = new List<SceneTreeTween>();
+        TweenGrouping _next = null;
+        
+        public void PushStack() {
+            _next = new TweenGrouping();
+            _next._groups = _groups;
+            _next._currGroup = _currGroup;
+            _groups = new List<TweenGroup>();
+            _currGroup = new TweenGroup();
+        }
 
+        public void DropStack() {
+            _groups = _next._groups;
+            _currGroup = _next._currGroup;
+            _next = _next._next;
+        }
+
+        public void MergeStack() {
+            _next._groups.AddRange(_groups);
+            _next._currGroup.AddRange(_currGroup);
+            _groups = _next._groups;
+            _currGroup = _next._currGroup;
+            _next = _next._next;
+        }
+        
         public void AddTween(TweenEntry entry) {
             _currGroup.Add(entry);
         }
@@ -523,6 +579,32 @@ public partial class Level : Node2D
                 JustPressed = false;
                 Held = false;
             }
+        }
+    }
+
+    void StartAttempt() {
+        _undoStack.PushStack();
+        _tweenGrouping.PushStack();
+    }
+
+    void DropAttempt() {
+        _undoStack.DropStack(this);
+        _tweenGrouping.DropStack();
+    }
+
+    void AcceptAttempt() {
+        _undoStack.MergeStack(this);
+        _tweenGrouping.MergeStack();
+    }
+
+    bool DoAttempt(Func<bool> accept) {
+        StartAttempt();
+        if (accept()) {
+            AcceptAttempt();
+            return true;
+        } else {
+            DropAttempt();    
+            return false;
         }
     }
 
@@ -828,6 +910,27 @@ public partial class Level : Node2D
         return result == PR.Rigid && !front.IsRigid(-dir) ? PR.Forcing : result;
     }
 
+    struct YuuData {
+        public Yuu yuu;
+        public Vector2I position;
+        public Vector2I direction;
+    }
+
+    List<YuuData> GetYuus() {
+        return _entitiesById.Values
+            .SelectMany(e => e.Yuus.Select(u => new YuuData {
+                yuu = u,
+                position = e.Position.XY,
+                direction = e.Direction.XY,
+            }))
+            .ToList();
+    }
+
+    bool CheckSudokuRules() {
+        var yuus = GetYuus();
+        return true;
+    }
+
     // Not to be called with fixed blocks. The array returned is
     // a list of entities that moved with it.
     List<Entity> AttemptMove(Entity ent, Vector3I dir, bool gravity, bool can_push, bool doBumpEffect) {
@@ -876,13 +979,18 @@ public partial class Level : Node2D
                 _tweenGrouping.AddTween(new TweenSoundEffectEntry(Global.SFX.Bump, 0));
             }
         }
-        foreach (var e in Moving)
-            Move(e, dir, gravity);
-        
-        foreach (var e in Squished)
-            if (e.Alive)
-                if (e.HandleSquished())
-                    DeleteEntityUndoable(e, new DefeatParams.Squish(){ Direction = dir.XY });
+
+        DoAttempt(() => {
+            foreach (var e in Moving)
+                Move(e, dir, gravity);
+            
+            foreach (var e in Squished)
+                if (e.Alive)
+                    if (e.HandleSquished())
+                        DeleteEntityUndoable(e, new DefeatParams.Squish(){ Direction = dir.XY });
+
+            return CheckSudokuRules();
+        });
         
         HandleHazardousSurface(Moving);
         return Moving;

@@ -119,6 +119,8 @@ public class Entity
     // Note that if this returns false, that doesn't mean the entity is fixed.
     // It can still move by gravity, for example.
     public virtual bool IsPushable(Vector3I dir) => false;
+
+    public virtual IEnumerable<Yuu> Yuus => new List<Yuu>();
         
     public Vector3I Position => _pos;
 

@@ -30,6 +30,7 @@ public class LevelFile
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public Block.BlockType Type { get; set; }
+        public bool HasYuu { get; set; } = true;
     }
 
     public class MarkerFile : EntityCustomData

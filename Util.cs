@@ -76,6 +76,13 @@ public partial class Util : Node
     public static int[] Vec3IToIntArray(Vector3I v) => new int[]{ v.x, v.y, v.z };
     public static Vector3I IntArrayToVec3I(int[] v) => new Vector3I(v[0], v[1], v[2]);
 
+    public static bool TryPop<T>(List<T> stack, out T value) {
+        bool hasValue = stack.Count > 0;
+        value = hasValue ? stack.Last() : default;
+        if (hasValue)
+            stack.RemoveAt(stack.Count - 1);
+        return hasValue;
+    }
     public static bool TryPop<T>(Stack<T> stack, out T value) {
         bool hasValue = stack.Count > 0;
         value = hasValue ? stack.Pop() : default;

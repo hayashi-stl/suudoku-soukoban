@@ -16,6 +16,7 @@ format = 1
 
 [node name="LineHorzMap" type="TileMap" parent="."]
 unique_name_in_owner = true
+z_index = 1
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 64, 32 )
 cell_tile_origin = 1
@@ -23,6 +24,7 @@ format = 1
 
 [node name="LineVertMap" type="TileMap" parent="."]
 unique_name_in_owner = true
+z_index = 1
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 32, 64 )
 cell_tile_origin = 1

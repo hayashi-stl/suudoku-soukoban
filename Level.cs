@@ -175,6 +175,8 @@ public partial class Level : Node2D
         }
 
         public void UndoAll(Level level) {
+            while (Util.TryPop(_actions, out var action))
+                action.Do(level);
             while (Util.TryPop(_batched, out var action))
                 action.Do(level);
         }
@@ -326,6 +328,20 @@ public partial class Level : Node2D
 
         public override IEnumerable<SceneTreeTween> Execute(Level level, float delay) {
             return _entity.TweenEnterLevel( _offset, delay);
+        }
+    }
+
+    class TweenYuuWrongEntry : TweenEntry {
+        Yuu _yuu;
+        public override string Key => $"YuuWrong {_yuu.GetInstanceId()}";
+        public override Entity ActingEntity => null;
+
+        public TweenYuuWrongEntry(Yuu yuu) {
+            _yuu = yuu;
+        }
+
+        public override IEnumerable<SceneTreeTween> Execute(Level level, float delay) {
+            return _yuu.TweenWrong(delay);
         }
     }
 
@@ -597,14 +613,15 @@ public partial class Level : Node2D
         _tweenGrouping.MergeStack();
     }
 
-    bool DoAttempt(Func<bool> accept) {
+    (bool, E) DoAttempt<E>(Func<(bool, E)> accept) {
         StartAttempt();
-        if (accept()) {
+        var (success, error) = accept();
+        if (success) {
             AcceptAttempt();
-            return true;
+            return (true, error);
         } else {
             DropAttempt();    
-            return false;
+            return (false, error);
         }
     }
 
@@ -644,7 +661,13 @@ public partial class Level : Node2D
     readonly TweenGrouping _tweenGrouping = new TweenGrouping();
     float _shakeMagnitude = 0.0f;
 
-    TileMap _regionMap;
+    TileMap _tileMap;
+    List<RegionMap> _regionMaps = Enumerable.Repeat(null as RegionMap, Util.EnumLength<RegionMapType>()).ToList();
+    enum RegionMapType {
+        Row,
+        Column,
+        Region,
+    }
 
     Vector2 _basePosition;
     public Vector2 BasePosition {
@@ -801,6 +824,23 @@ public partial class Level : Node2D
         }
     }
 
+    void InitRegionMaps() {
+        _regionMaps[(int)RegionMapType.Row] = new RegionMap(_tileMap,
+            (t, v) => new List<Vector2I>(){ v + Vector2I.Left, v + Vector2I.Right }
+                .Where(w => t.GetCell(w.x, w.y) != (int)LevelFile.PlayTile.Wall)
+        );
+
+        _regionMaps[(int)RegionMapType.Column] = new RegionMap(_tileMap,
+            (t, v) => new List<Vector2I>(){ v + Vector2I.Up, v + Vector2I.Down }
+                .Where(w => t.GetCell(w.x, w.y) != (int)LevelFile.PlayTile.Wall)
+        );
+
+        _regionMaps[(int)RegionMapType.Region] = new RegionMap(_tileMap,
+            (t, v) => new List<Vector2I>(){ v + Vector2I.Up, v + Vector2I.Down, v + Vector2I.Left, v + Vector2I.Right }
+                .Where(w => t.GetCell(v.x, v.y) == t.GetCell(w.x, w.y))
+        );
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         _buttons = Enumerable.Range(0, GameButton.NumActions).Select(i => null as GameButton).ToList();
@@ -829,7 +869,7 @@ public partial class Level : Node2D
         for (int i = 0; i < Entity.NumTypes; ++i)
             _entriesByType.Add(new Entry());
 
-        _regionMap = GetNode<TileMap>("%RegionMap");
+        _tileMap = GetNode<TileMap>("%RegionMap");
             
         // Fill entries from the grid map
         for (int z = MinZ; z < MinZ + SizeZ; ++z)
@@ -841,7 +881,7 @@ public partial class Level : Node2D
                     var lowerCellIndex = ((mapPosition.z - 1) * _levelFile.Size.y + mapPosition.y) * _levelFile.Size.x + mapPosition.x;
                     var cell = _levelFile.Map[cellIndex];
                     if (cell != LevelFile.FileTile.Invalid) {
-                        _regionMap.SetCell(x, y, (int)LevelFile.ToPlayTile(cell, z));
+                        _tileMap.SetCell(x, y, (int)LevelFile.ToPlayTile(cell, z));
 
                         var ent = new Entity.Fixed(Global.Instance(this).NextEntityID(), cellPosition);
                         AddEntity(ent, cellPosition);
@@ -854,7 +894,8 @@ public partial class Level : Node2D
                     }
                 }
 
-        DoBorders(_regionMap, GetNode<TileMap>("LineHorzMap"), GetNode<TileMap>("LineVertMap"));
+        DoBorders(_tileMap, GetNode<TileMap>("LineHorzMap"), GetNode<TileMap>("LineVertMap"));
+        InitRegionMaps();
 
         LoadInEntities(false);
     }
@@ -911,24 +952,45 @@ public partial class Level : Node2D
     }
 
     struct YuuData {
-        public Yuu yuu;
-        public Vector2I position;
-        public Vector2I direction;
+        public Yuu Yuu;
+        public Vector2I Position;
+        public Vector2I Direction;
+        public int EntityID;
+        public int YuuIndex;
     }
 
     List<YuuData> GetYuus() {
         return _entitiesById.Values
-            .SelectMany(e => e.Yuus.Select(u => new YuuData {
-                yuu = u,
-                position = e.Position.XY,
-                direction = e.Direction.XY,
+            .SelectMany(e => e.Yuus.Zip(Enumerable.Range(0, e.Yuus.Count()), (u, i) => (i, u)).Select(u => new YuuData {
+                Yuu = u.u,
+                Position = e.Position.XY,
+                Direction = e.Direction.XY,
+                EntityID = e.Id,
+                YuuIndex = u.i,
             }))
             .ToList();
     }
 
-    bool CheckSudokuRules() {
+    // Returns a list of bad yuus
+    IEnumerable<(int EntityID, int YuuIndex)> CheckSudokuRules() {
         var yuus = GetYuus();
-        return true;
+        var badYuus = new HashSet<(int, int)>();
+        
+        for (int i = 0; i < Util.EnumLength<RegionMapType>(); ++i) {
+            var dict = new Dictionary<(int Region, Vector2I Direction), YuuData>();
+            foreach (var yuu in yuus) {
+                int region = _regionMaps[i].Region(yuu.Position);
+                var key = (region, yuu.Direction);
+                if (dict.ContainsKey(key)) {
+                    badYuus.Add((dict[key].EntityID, dict[key].YuuIndex));
+                    badYuus.Add((yuu.EntityID, yuu.YuuIndex));
+                } else {
+                    dict[key] = yuu;
+                }
+            }
+        }
+
+        return badYuus;
     }
 
     // Not to be called with fixed blocks. The array returned is
@@ -980,7 +1042,8 @@ public partial class Level : Node2D
             }
         }
 
-        DoAttempt(() => {
+        var MovingIDs = Moving.Select(e => e.Id).ToList();
+        var (success, badYuus) = DoAttempt(() => {
             foreach (var e in Moving)
                 Move(e, dir, gravity);
             
@@ -989,8 +1052,21 @@ public partial class Level : Node2D
                     if (e.HandleSquished())
                         DeleteEntityUndoable(e, new DefeatParams.Squish(){ Direction = dir.XY });
 
-            return CheckSudokuRules();
+            var badYuus = CheckSudokuRules().ToList();
+            return (!badYuus.Any(), badYuus);
         });
+
+        Moving = MovingIDs.Select(i => Util.GetOr(_entitiesById, i, null)).Where(e => e != null).ToList();
+        if (!success) {
+            foreach (var entity in Moving)
+                _tweenGrouping.AddTween(new TweenEntityBumpPositionEntry(entity, (Vector2)dir.XY * Util.TileSize));
+                    
+            foreach (var yuuRef in badYuus)
+                if (_entitiesById.ContainsKey(yuuRef.EntityID)) {
+                    var yuu = _entitiesById[yuuRef.EntityID].YuuAt(yuuRef.YuuIndex);
+                    _tweenGrouping.AddTween(new TweenYuuWrongEntry(yuu));
+                }
+        }
         
         HandleHazardousSurface(Moving);
         return Moving;

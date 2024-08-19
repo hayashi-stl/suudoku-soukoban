@@ -76,7 +76,7 @@
      id="layer1">
     <path
        id="rect15"
-       style="fill:#008000;fill-rule:evenodd;stroke:none;stroke-width:0.529167;stroke-dasharray:none"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.529167;stroke-dasharray:none"
        d="M 4.7625 4.7625 L 4.7625 9.5250001 A 2.645833 2.6458325 0 0 0 7.4083334 12.170833 L 9.5250001 12.170833 A 2.645833 2.6458325 0 0 0 12.170833 9.5250001 L 12.170833 4.7625 L 10.583333 4.7625 L 10.583333 9.5250001 A 1.0583334 1.0583333 0 0 1 9.5250001 10.583333 L 7.4083334 10.583333 A 1.0583334 1.0583333 0 0 1 6.3500001 9.5250001 L 6.3500001 4.7625 L 4.7625 4.7625 z " />
   </g>
 </svg>

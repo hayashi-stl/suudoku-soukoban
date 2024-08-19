@@ -113,4 +113,8 @@ public partial class Util : Node
     public static Transform2D Translation(Vector2 translation) {
         return Transform2D.Identity.Translated(translation);
     }
+
+    public static int EnumLength<E>() {
+        return Enum.GetNames(typeof(E)).Length;
+    }
 }

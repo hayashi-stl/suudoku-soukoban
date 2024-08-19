@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Tileset/LineVert Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Effect/YuuWrong.cs" type="Script" id=2]
+
+[node name="YuuWrong" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Region" type="TileMap" parent="."]
+unique_name_in_owner = true
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 64 )
+cell_tile_origin = 1
+format = 1
+
+[node name="Row" type="TileMap" parent="."]
+unique_name_in_owner = true
+z_index = 80
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 64 )
+cell_tile_origin = 1
+format = 1
+
+[node name="Column" type="TileMap" parent="."]
+unique_name_in_owner = true
+z_index = 80
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 64 )
+cell_tile_origin = 1
+format = 1

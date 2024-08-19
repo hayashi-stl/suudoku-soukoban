@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 [Tool]
 public class Yuu : Sprite
@@ -12,6 +13,12 @@ public class Yuu : Sprite
     public override void _Ready()
     {
         
+    }
+
+    public IEnumerable<SceneTreeTween> TweenWrong(float delay)
+    {
+        var tween = CreateTween();
+        return new List<SceneTreeTween>(){ tween };
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

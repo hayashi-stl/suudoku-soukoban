@@ -607,4 +607,7 @@ public struct Rect2I : IEquatable<Rect2I>
             _size.ToString(format)
         });
     }
+    
+    public static explicit operator Rect2(Rect2I v) => new Rect2((Vector2)v.Position, (Vector2)v.Size);
+    public static explicit operator Rect2I(Rect2 v) => new Rect2I((Vector2I)v.Position, (Vector2I)v.Size);
 }

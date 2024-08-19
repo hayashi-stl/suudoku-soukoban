@@ -121,6 +121,8 @@ public class Entity
     public virtual bool IsPushable(Vector3I dir) => false;
 
     public virtual IEnumerable<Yuu> Yuus => new List<Yuu>();
+
+    public Yuu YuuAt(int index) => Yuus.ToList()[index];
         
     public Vector3I Position => _pos;
 

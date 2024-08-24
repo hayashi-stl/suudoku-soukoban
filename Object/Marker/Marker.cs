@@ -8,18 +8,18 @@ using System.Linq;
 public partial class Marker : EntityNode2D
 {
     public enum MarkerType {
-        Rotate,
+        Target,
+        Goal,
         Exit,
         ExitParallel,
     }
 
     public static bool IsTypeExit(MarkerType type) => type == MarkerType.Exit || type == MarkerType.ExitParallel;
 
-    Sprite _activeOutline;
-    List<MeshInstance2D> _activeMeshes = new List<MeshInstance2D>();
+    List<Sprite> _activeVisuals = new List<Sprite>();
 
             
-    MarkerType _type = MarkerType.Rotate;
+    MarkerType _type = MarkerType.Target;
     [Export]
     public MarkerType Type {
         get => _type;
@@ -60,25 +60,22 @@ public partial class Marker : EntityNode2D
         
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        _activeOutline = GetNode<Sprite>("%FixedOutline");
-        _activeMeshes = new List<MeshInstance2D>(){ GetNode<MeshInstance2D>("%Fixed") };
+        _activeVisuals = new List<Sprite>(){ GetNode<Sprite>("%Target") };
         PrepareCommon();
         UpdateTexture();
     }
 
     protected override void UpdateTexture() {
-        _activeOutline.Visible = false;
-        _activeMeshes.ForEach(m => m.Visible = false);
-        var (outlineName, meshNames) = Type switch {
-            MarkerType.Rotate => ("%FixedOutline", new List<string>(){ "%Exit Frame", "%Exit Swirl" }),
-            MarkerType.Exit => ("%FixedOutline", new List<string>(){ "%Exit Frame", "%Exit Swirl" }),
-            MarkerType.ExitParallel => ("%FixedOutline", new List<string>(){ "%ExitParallel Frame", "%ExitParallel Flow" }),
+        _activeVisuals.ForEach(m => m.Visible = false);
+        var visualNames = Type switch {
+            MarkerType.Target => new List<string>(){ "%Target" },
+            MarkerType.Goal => new List<string>(){ "%Goal" },
+            MarkerType.Exit => new List<string>(){ "%Exit Swirl" },
+            MarkerType.ExitParallel => new List<string>(){ "%ExitParallel Flow" },
             _ => throw new InvalidEnumArgumentException()
         };
-        _activeOutline = GetNode<Sprite>(outlineName);
-        _activeMeshes = meshNames.Select(m => GetNode<MeshInstance2D>(m)).ToList();
-        _activeOutline.Visible = true;
-        _activeMeshes.ForEach(m => m.Visible = true);
+        _activeVisuals = visualNames.Select(m => GetNode<Sprite>(m)).ToList();
+        _activeVisuals.ForEach(m => m.Visible = true);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -88,36 +85,12 @@ public partial class Marker : EntityNode2D
             Rotation = Mathf.Round(Rotation / (Mathf.Tau / 4)) * (Mathf.Tau / 4);
         var noRotating = GetNode<Node2D>("%NoRotating");
         noRotating.Rotation = -Rotation;
-
-        if (!Engine.EditorHint) {
-            if (Type == MarkerType.Exit) {
-                _exitAnimValue += ExitSwirlSpeed * delta;
-                _exitAnimValue %= Mathf.Tau;
-                var swirlTransform =
-                    Util.Translation(new Vector2(0.5f, 0.5f)) *
-                    Util.Rotation(_exitAnimValue) *
-                    Util.Translation(new Vector2(-0.5f, -0.5f));
-                Util.SetInstanceShaderParameter2D(_activeMeshes[1], "uv_transform", swirlTransform);
-            } else if (Type == MarkerType.ExitParallel) {
-                _exitAnimValue += ExitFlowSpeed * delta;
-                _exitAnimValue %= 1.0f;
-                var flowTransform = Util.Translation(new Vector2(0.0f, -_exitAnimValue));
-                Util.SetInstanceShaderParameter2D(_activeMeshes[1], "uv_transform", flowTransform);
-            }
-        }
     }
 
     public override void OnSteppedOn() {
-        FlashFactor = 1.0f;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "FlashFactor", 0.0f, 0.1f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
     }
 
-    public override void OnEntered()
-    {
-        FlashFactor = 0.5f;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "FlashFactor", 0.0f, Stage.EnterLevelTweenTime).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+    public override void OnEntered() {
     }
 
     public static EntityNode2D SpawnNode(LevelFile.MarkerFile file) {

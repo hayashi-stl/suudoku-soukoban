@@ -69,6 +69,51 @@
         "Type": "Push",
         "HasYuu": true
       }
+    },
+    {
+      "Position": [4, 2, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    },
+    {
+      "Position": [4, 5, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Goal"
+      }
+    },
+    {
+      "Position": [4, 3, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    },
+    {
+      "Position": [7, 3, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    },
+    {
+      "Position": [7, 4, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
     }
   ]
 }

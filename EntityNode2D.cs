@@ -166,7 +166,7 @@ public abstract partial class EntityNode2D : Node2D, IEntityNode {
     }
 
     public virtual void OnSteppedOn() {}
-    public virtual void OnPunched() {}
+    public virtual void OnTargetStateChanged(bool active) {}
     public virtual void OnEntered() {}
     public virtual void OnMoveStart(bool gravity) {}
     public virtual void OnLevelClearChanged(bool levelClear) {

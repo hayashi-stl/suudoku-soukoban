@@ -41,6 +41,10 @@ class RegionMap {
         //}
     }
 
+    public IEnumerable<Vector2I> RegionTiles(int index) {
+        return _regions[index];
+    }
+
     public int Region(Vector2I pos) {
         if (_regionIndexes.TryGetValue(pos, out var region))
             return region;

@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Object/Yuu/Yuu.png" type="Texture" id=1]
 [ext_resource path="res://Object/Yuu/Yuu.cs" type="Script" id=2]
+[ext_resource path="res://Object/Yuu/Wrong.png" type="Texture" id=3]
 
 [node name="Yuu" type="Sprite"]
-modulate = Color( 0, 0.501961, 0, 1 )
+self_modulate = Color( 0, 0.501961, 0, 1 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="Wrong" type="Sprite" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 3 )

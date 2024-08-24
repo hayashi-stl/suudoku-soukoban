@@ -333,15 +333,39 @@ public partial class Level : Node2D
 
     class TweenYuuWrongEntry : TweenEntry {
         Yuu _yuu;
+        float _delay;
         public override string Key => $"YuuWrong {_yuu.GetInstanceId()}";
         public override Entity ActingEntity => null;
 
-        public TweenYuuWrongEntry(Yuu yuu) {
+        public TweenYuuWrongEntry(Yuu yuu, float delay) {
             _yuu = yuu;
+            _delay = delay;
         }
 
         public override IEnumerable<SceneTreeTween> Execute(Level level, float delay) {
-            return _yuu.TweenWrong(delay);
+            return _yuu.TweenWrong(delay + _delay);
+        }
+    }
+
+    class TweenYuuWrongEffectEntry : TweenEntry {
+        YuuWrongEffect _effect;
+        float _delay;
+        ulong _id;
+        static ulong nextID;
+        public override string Key => $"YuuWrongEffect {_id}";
+        public override Entity ActingEntity => null;
+
+        public TweenYuuWrongEffectEntry(YuuWrongEffect.Way way, IEnumerable<int> regions, Level level, float delay) {
+            _effect = Global.Effect.YuuWrong.Instance<YuuWrongEffect>();
+            _effect.Init(way, regions.Select(r => level._regionMaps[(int)way].RegionTiles(r)), level._tileMap);
+            level.AddChild(_effect);
+            _delay = delay;
+            _id = nextID;
+            ++nextID;
+        }
+
+        public override IEnumerable<SceneTreeTween> Execute(Level level, float delay) {
+            return _effect.TweenEffect(delay + _delay);
         }
     }
 
@@ -416,7 +440,7 @@ public partial class Level : Node2D
     class EntityEffect : Reference
     {
         public class OnSteppedOn : EntityEffect {}
-        public class OnPunched : EntityEffect {}
+        public class OnTargetStateChanged : EntityEffect { public bool Active { get; set; }}
         public class OnEntered : EntityEffect {}
         public class OnMoveStart : EntityEffect { public bool Gravity { get; set; }}
         public class OnLevelClearChanged : EntityEffect { public bool LevelClear { get; set; } }
@@ -427,7 +451,7 @@ public partial class Level : Node2D
         if (_entitiesById.TryGetValue(entityID, out var entity))
             switch (effect) {
                 case EntityEffect.OnSteppedOn e: entity.OnSteppedOn(); break;
-                case EntityEffect.OnPunched e: entity.OnPunched(); break;
+                case EntityEffect.OnTargetStateChanged e: entity.OnTargetStateChanged(e.Active); break;
                 case EntityEffect.OnEntered e: entity.OnEntered(); break;
                 case EntityEffect.OnMoveStart e: entity.OnMoveStart(e.Gravity); break;
                 case EntityEffect.OnLevelClearChanged e: entity.OnLevelClearChanged(e.LevelClear); break;
@@ -721,7 +745,7 @@ public partial class Level : Node2D
                 ent.Kill(tween);
                 if (tween) {
                     _tweenGrouping.AddTween(new TweenEntityExistenceEntry(ent, false, DefeatParams.Punch.KillDelay));
-                    SpawnParticleEffect(Global.ParticleEffect.BaddyPoof, ent.Position, Vector3I.Up, DefeatParams.Punch.KillDelay);
+                    SpawnParticleEffect(Global.Effect.BaddyPoof, ent.Position, Vector3I.Up, DefeatParams.Punch.KillDelay);
                     _tweenGrouping.AddTween(new TweenSoundEffectEntry(Global.SFX.Poof, DefeatParams.Punch.KillDelay));
                 }
                 break;
@@ -972,9 +996,10 @@ public partial class Level : Node2D
     }
 
     // Returns a list of bad yuus
-    IEnumerable<(int EntityID, int YuuIndex)> CheckSudokuRules() {
+    (IEnumerable<(int EntityID, int YuuIndex)> BadYuus, IEnumerable<IEnumerable<int>> BadRegions) CheckSudokuRules() {
         var yuus = GetYuus();
         var badYuus = new HashSet<(int, int)>();
+        var badRegions = Enumerable.Range(0, Util.EnumLength<RegionMapType>()).Select(_ => new HashSet<int>()).ToList();
         
         for (int i = 0; i < Util.EnumLength<RegionMapType>(); ++i) {
             var dict = new Dictionary<(int Region, Vector2I Direction), YuuData>();
@@ -984,13 +1009,14 @@ public partial class Level : Node2D
                 if (dict.ContainsKey(key)) {
                     badYuus.Add((dict[key].EntityID, dict[key].YuuIndex));
                     badYuus.Add((yuu.EntityID, yuu.YuuIndex));
+                    badRegions[i].Add(region);
                 } else {
                     dict[key] = yuu;
                 }
             }
         }
 
-        return badYuus;
+        return (badYuus, badRegions);
     }
 
     // Not to be called with fixed blocks. The array returned is
@@ -1031,7 +1057,7 @@ public partial class Level : Node2D
         graph.MarkMovability();
         var (Moving, Squished) = graph.MovingSquishedEntities(ent);
         if (Moving.Contains(ent) && !gravity)
-            SpawnParticleEffect(Global.ParticleEffect.Dash, ent.Position, ent.Direction, 0);
+            SpawnParticleEffect(Global.Effect.Dash, ent.Position, ent.Direction, 0);
         if (!gravity) {
             if (Moving.Any())
                 _tweenGrouping.AddTween(new TweenSoundEffectEntry(Global.SFX.Move, 0));
@@ -1043,7 +1069,7 @@ public partial class Level : Node2D
         }
 
         var MovingIDs = Moving.Select(e => e.Id).ToList();
-        var (success, badYuus) = DoAttempt(() => {
+        var (success, (badYuus, badRegions)) = DoAttempt(() => {
             foreach (var e in Moving)
                 Move(e, dir, gravity);
             
@@ -1052,8 +1078,10 @@ public partial class Level : Node2D
                     if (e.HandleSquished())
                         DeleteEntityUndoable(e, new DefeatParams.Squish(){ Direction = dir.XY });
 
-            var badYuus = CheckSudokuRules().ToList();
-            return (!badYuus.Any(), badYuus);
+            var (badYuus_, badRegions_) = CheckSudokuRules();
+            var badYuus = badYuus_.ToList();
+            var badRegions = badRegions_.ToList();
+            return (!badYuus.Any(), (badYuus, badRegions));
         });
 
         Moving = MovingIDs.Select(i => Util.GetOr(_entitiesById, i, null)).Where(e => e != null).ToList();
@@ -1064,8 +1092,14 @@ public partial class Level : Node2D
             foreach (var yuuRef in badYuus)
                 if (_entitiesById.ContainsKey(yuuRef.EntityID)) {
                     var yuu = _entitiesById[yuuRef.EntityID].YuuAt(yuuRef.YuuIndex);
-                    _tweenGrouping.AddTween(new TweenYuuWrongEntry(yuu));
+                    _tweenGrouping.AddTween(new TweenYuuWrongEntry(yuu, Entity.TweenTime * 0.25f));
                 }
+
+            for (int i = 0; i < badRegions.Count; ++i) {
+                var regions = badRegions[i];
+                if (regions.Any())
+                    _tweenGrouping.AddTween(new TweenYuuWrongEffectEntry((YuuWrongEffect.Way)i, regions, this, Entity.TweenTime * 0.25f));
+            }
         }
         
         HandleHazardousSurface(Moving);
@@ -1223,7 +1257,17 @@ public partial class Level : Node2D
     bool CheckLevelClear() {
         bool newClear = false;
 
-        // TODO: Clear condition
+        var markers = _entriesByType[(int)Entity.EntityType.Marker].entities.Values.Select(m => (Marker.Ent)m).ToList();
+        foreach (var m in markers)
+            GD.Print($"{m.Debug()}");
+        GD.Print("");
+        var targets = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Target);
+        var goals   = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Goal);
+        if (targets.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e.Type == Entity.EntityType.Block)) &&
+            goals.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e.Type == Entity.EntityType.Player)))
+        {
+            newClear = true;
+        }
 
         bool changed = newClear != _clear;
         _clear = newClear;

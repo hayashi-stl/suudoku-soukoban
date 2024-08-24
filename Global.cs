@@ -42,7 +42,8 @@ public partial class Global : Node
         }
     }
 
-    public class ParticleEffect {
+    public class Effect {
+        public static readonly PackedScene YuuWrong = GD.Load<PackedScene>("res://Effect/YuuWrong.tscn");
         public static readonly PackedScene Dash = GD.Load<PackedScene>("res://Effect/Dash.tscn");
         public static readonly PackedScene BaddyPoof = GD.Load<PackedScene>("res://Effect/BaddyPoof.tscn");
         public static readonly PackedScene PlayerPoof = GD.Load<PackedScene>("res://Effect/PlayerPoof.tscn");

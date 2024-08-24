@@ -50,7 +50,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/custom_resource/plugin.cfg", "res://addons/taimage/plugin.cfg", "res://addons/tamesh/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/custom_resource/plugin.cfg" )
 
 [gui]
 

@@ -6,7 +6,7 @@ using Godot;
 //     2-element structure that can be used to represent positions in 2D space or any
 //     other pair of numeric values.
 [Serializable]
-public struct Vector2I : IEquatable<Vector2I>
+public struct Vector2I : IComparable<Vector2I>
 {
     //
     // Summary:
@@ -900,6 +900,9 @@ public struct Vector2I : IEquatable<Vector2I>
     {
         return "(" + x.ToString(format) + ", " + y.ToString(format) + ")";
     }
+
+    public readonly int CompareTo(Vector2I other) => this < other ? -1 : this == other ? 0 : 1;
+    
 
     public static explicit operator Vector2(Vector2I v) => new Vector2(v.x, v.y);
     public static explicit operator Vector2I(Vector2 v) => new Vector2I((int)v.x, (int)v.y);

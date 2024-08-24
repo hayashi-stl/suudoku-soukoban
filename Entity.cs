@@ -187,7 +187,7 @@ public class Entity
     }
 
     public virtual void OnSteppedOn() => EntityNode.OnSteppedOn();
-    public virtual void OnPunched() => EntityNode.OnPunched();
+    public virtual void OnTargetStateChanged(bool active) => EntityNode.OnTargetStateChanged(active);
     public virtual void OnEntered() => EntityNode.OnEntered();
     public virtual void OnMoveStart(bool gravity) => EntityNode.OnMoveStart(gravity);
     public virtual void OnLevelClearChanged(bool levelClear) => EntityNode.OnLevelClearChanged(levelClear);
@@ -299,7 +299,7 @@ public class Entity
         public override bool IsPushable(Vector3I dir) => false;
 
         public override void OnSteppedOn() {}
-        public override void OnPunched() {}
+        public override void OnTargetStateChanged(bool active) {}
         public override void OnEntered() {}
         public override void OnMoveStart(bool gravity) {}
         public override void OnLevelClearChanged(bool levelClear) {}

@@ -1,0 +1,84 @@
+{
+  "Name": "Interregional Journey",
+  "Controls": "",
+  "Base": [0, 0, 0],
+  "Size": [9, 8, 2],
+  "SublevelPaths": [],
+  "Map": [
+      1, 1, 1, 1, 1, 1, 0, 0, 0,
+      1, 2, 2, 2, 0, 1, 1, 0, 0,
+      1, 4, 4, 2, 2, 0, 1, 1, 0,
+      1, 4, 4, 4, 2, 2, 0, 1, 1,
+      1, 3, 3, 4, 0, 2, 2, 0, 1,
+      0, 3, 0, 4, 4, 0, 2, 1, 1,
+      0, 3, 3, 0, 4, 4, 3, 1, 0,
+      0, 0, 3, 3, 3, 3, 3, 0, 0,
+
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0
+    ],
+  "Entities": [
+    {
+      "Position": [1, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Player"
+      }
+    },
+    {
+      "Position": [1, 2, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [2, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [7, 5, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [1, 1, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Goal"
+      }
+    },
+    {
+      "Position": [5, 6, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    }
+  ]
+}

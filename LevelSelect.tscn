@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://LevelSelect.cs" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Level/Level One.json" type="Resource" id=4]
 [ext_resource path="res://Level/TestLevel Test.json" type="Resource" id=5]
 [ext_resource path="res://Level/Level AroundTheHole.json" type="Resource" id=6]
+[ext_resource path="res://Level/Level Regions.json" type="Resource" id=7]
+[ext_resource path="res://Level/Level InterregionalJourney.json" type="Resource" id=8]
+[ext_resource path="res://Level/Level Nun.json" type="Resource" id=9]
 
 [sub_resource type="Theme" id=1]
 
@@ -43,30 +46,60 @@ SOUKOBAN"
 scroll_active = false
 
 [node name="Button" type="Button" parent="."]
-margin_left = 504.0
-margin_top = 504.0
-margin_right = 952.0
-margin_bottom = 568.0
+margin_left = 512.0
+margin_top = 512.0
+margin_right = 960.0
+margin_bottom = 576.0
 theme = SubResource( 5 )
 text = "First"
 script = ExtResource( 3 )
 Level = ExtResource( 4 )
 
+[node name="Button4" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 576.0
+margin_right = 960.0
+margin_bottom = 640.0
+theme = SubResource( 5 )
+text = "Regions"
+script = ExtResource( 3 )
+Level = ExtResource( 7 )
+
+[node name="Button6" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 640.0
+margin_right = 960.0
+margin_bottom = 704.0
+theme = SubResource( 5 )
+text = "Nun"
+script = ExtResource( 3 )
+Level = ExtResource( 9 )
+
+[node name="Button5" type="Button" parent="."]
+margin_left = 960.0
+margin_top = 576.0
+margin_right = 1408.0
+margin_bottom = 640.0
+theme = SubResource( 5 )
+text = "Interregional Journey"
+script = ExtResource( 3 )
+Level = ExtResource( 8 )
+
 [node name="Button3" type="Button" parent="."]
-margin_left = 952.0
-margin_top = 504.0
-margin_right = 1400.0
-margin_bottom = 568.0
+margin_left = 960.0
+margin_top = 512.0
+margin_right = 1408.0
+margin_bottom = 576.0
 theme = SubResource( 5 )
 text = "Around the Hole"
 script = ExtResource( 3 )
 Level = ExtResource( 6 )
 
 [node name="Button2" type="Button" parent="."]
-margin_left = 504.0
-margin_top = 609.0
-margin_right = 952.0
-margin_bottom = 673.0
+margin_left = 512.0
+margin_top = 704.0
+margin_right = 960.0
+margin_bottom = 768.0
 theme = SubResource( 5 )
 text = "Test"
 script = ExtResource( 3 )

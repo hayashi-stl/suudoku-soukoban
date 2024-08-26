@@ -1258,9 +1258,6 @@ public partial class Level : Node2D
         bool newClear = false;
 
         var markers = _entriesByType[(int)Entity.EntityType.Marker].entities.Values.Select(m => (Marker.Ent)m).ToList();
-        foreach (var m in markers)
-            GD.Print($"{m.Debug()}");
-        GD.Print("");
         var targets = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Target);
         var goals   = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Goal);
         if (targets.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e.Type == Entity.EntityType.Block)) &&

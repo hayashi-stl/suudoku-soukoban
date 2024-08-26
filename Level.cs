@@ -816,7 +816,7 @@ public partial class Level : Node2D
         horzBorders.Clear();
         vertBorders.Clear();
 
-        var map = regionMap.GetUsedCells().Cast<Vector2>().ToDictionary(v => (Vector2I)v, v => (LevelFile.PlayTile)regionMap.GetCell((int)v.x, (int)v.y));
+        var map = regionMap.GetUsedCells().Cast<Vector2>().ToDictionary(v => (Vector2I)v.Floor(), v => (LevelFile.PlayTile)regionMap.GetCell((int)v.x, (int)v.y));
         var mapOffsetHorz = map.ToDictionary(pair => pair.Key + Vector2I.Right, pair => pair.Value);
         var mapOffsetVert = map.ToDictionary(pair => pair.Key + Vector2I.Down, pair => pair.Value);
 

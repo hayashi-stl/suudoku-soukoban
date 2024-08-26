@@ -13,7 +13,7 @@ public partial class Util : Node
     }
 
     public static Vector3I ToTileSpace(Vector2 XY, int ZIndex) {
-        var posXY = (Vector2I)(XY / TileSize);
+        var posXY = (Vector2I)(XY / TileSize).Floor();
         return new Vector3I(posXY.x, posXY.y, ZIndex / ZIndexGap);
     }
 

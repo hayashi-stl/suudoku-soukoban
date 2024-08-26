@@ -1,26 +1,35 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tileset/LineHorz Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Object/Player/Player.cs" type="Script" id=2]
 [ext_resource path="res://Tileset/Region Tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Tileset/LineVert Tileset.tres" type="TileSet" id=4]
 [ext_resource path="res://Object/Block/Block.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Maker.cs" type="Script" id=6]
 [ext_resource path="res://Object/Marker/Marker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Object/Player/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Level/Level Nun.json" type="Resource" id=10]
+[ext_resource path="res://Object/Marker/Marker.cs" type="Script" id=9]
+[ext_resource path="res://Object/Block/Block.cs" type="Script" id=10]
+[ext_resource path="res://Level/Level Corner.json" type="Resource" id=11]
 
 [node name="Maker" type="Node2D"]
 script = ExtResource( 6 )
-LevelName = "Nun"
+__meta__ = {
+"_edit_lock_": true
+}
+LevelName = "Corner"
 Sublevels = [  ]
-LevelTextFile = ExtResource( 10 )
+LevelTextFile = ExtResource( 11 )
 
 [node name="RegionMap" type="TileMap" parent="."]
 unique_name_in_owner = true
 tile_set = ExtResource( 3 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 2, 0, 0, 3, 1, 0, 4, 0, 0, 65536, 1, 0, 65537, 0, 0, 65538, 1, 0, 65539, 0, 0, 65540, 1, 0, 131072, 0, 0, 131073, 1, 0, 131074, 0, 0, 131075, 1, 0, 131076, 0, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 262144, 0, 0, 262145, 1, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0 )
+tile_data = PoolIntArray( 0, 2, 0, 1, 2, 0, 65536, 2, 0, 65537, 2, 0, 65538, 1, 0, 65539, 0, 0, 65540, 8, 0, 65541, 0, 0, 131072, 2, 0, 131073, 2, 0, 131074, 2, 0, 131075, 2, 0, 131076, 2, 0, 131077, 2, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 262144, 0, 0, 262145, 1, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0, 262149, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LineHorzMap" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -28,7 +37,10 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 64, 32 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0 )
+tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, 0, 1, 0, 1, 1, 0, 65536, 2, 0, 65537, 2, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 131072, 3, 0, 131073, 3, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 196608, 2, 0, 196609, 2, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 262144, 3, 0, 262145, 3, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LineVertMap" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -36,38 +48,33 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 64 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 65535, 0, 0, 0, 1, 0, 1, 0, 0, 2, 1, 0, 3, 0, 0, 4, 1, 0, 5, 0, 0, 6, 1, 0, 7, 0, 0, 8, 1, 0, 9, 0, 0, 10, 1, 0, 131071, 0, 0, 65536, 1, 0, 65537, 0, 0, 65538, 1, 0, 65539, 0, 0, 65540, 1, 0, 65541, 0, 0, 65542, 1, 0, 65543, 0, 0, 65544, 1, 0, 65545, 0, 0, 65546, 1, 0, 196607, 0, 0, 131072, 1, 0, 131073, 0, 0, 131074, 1, 0, 131075, 0, 0, 131076, 1, 0, 131077, 0, 0, 131078, 1, 0, 131079, 0, 0, 131080, 1, 0, 131081, 0, 0, 131082, 1, 0, 262143, 0, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 196614, 1, 0, 196615, 0, 0, 196616, 1, 0, 196617, 0, 0, 196618, 1, 0, 327679, 0, 0, 262144, 1, 0, 262145, 0, 0, 262146, 1, 0, 262147, 0, 0, 262148, 1, 0, 262149, 0, 0, 262150, 1, 0, 262151, 0, 0, 262152, 1, 0, 262153, 0, 0, 262154, 1, 0 )
+tile_data = PoolIntArray( 65535, 0, 0, 0, 1, 0, 1, 2, 0, 2, 3, 0, 3, 0, 0, 4, 1, 0, 131071, 0, 0, 65536, 1, 0, 65537, 2, 0, 65538, 3, 0, 65539, 0, 0, 65540, 1, 0, 65541, 0, 0, 65542, 1, 0, 65543, 0, 0, 65544, 1, 0, 65545, 0, 0, 65546, 1, 0, 65547, 0, 0, 65548, 1, 0, 196607, 0, 0, 131072, 1, 0, 131073, 2, 0, 131074, 3, 0, 131075, 2, 0, 131076, 3, 0, 131077, 2, 0, 131078, 3, 0, 131079, 2, 0, 131080, 3, 0, 131081, 2, 0, 131082, 3, 0, 131083, 0, 0, 131084, 1, 0, 262143, 0, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 196614, 1, 0, 196615, 0, 0, 196616, 1, 0, 196617, 0, 0, 196618, 1, 0, 196619, 0, 0, 196620, 1, 0, 327679, 0, 0, 262144, 1, 0, 262145, 0, 0, 262146, 1, 0, 262147, 0, 0, 262148, 1, 0, 262149, 0, 0, 262150, 1, 0, 262151, 0, 0, 262152, 1, 0, 262153, 0, 0, 262154, 1, 0, 262155, 0, 0, 262156, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 32, 288 )
+[node name="Player2" type="Node2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 224, 160 )
 z_index = 50
+script = ExtResource( 2 )
 
-[node name="Block4" parent="." instance=ExtResource( 5 )]
+[node name="Block3" type="Node2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 160, 160 )
 z_index = 50
+script = ExtResource( 10 )
 HasYuu = true
 
-[node name="Block5" parent="." instance=ExtResource( 5 )]
+[node name="Block6" type="Node2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 224, 224 )
-rotation = 3.14159
 z_index = 50
+script = ExtResource( 10 )
 HasYuu = true
 
-[node name="Block6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 96, 96 )
-rotation = 3.14159
-z_index = 50
-HasYuu = true
-
-[node name="Marker" parent="." instance=ExtResource( 7 )]
-position = Vector2( 160, 96 )
-
-[node name="Marker4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 32, 32 )
+[node name="Marker7" type="Node2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 352, 288 )
+script = ExtResource( 9 )
 Type = 1
 
-[node name="Marker5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 224, 160 )
-
-[node name="Marker6" parent="." instance=ExtResource( 7 )]
-position = Vector2( 96, 224 )
+[node name="Marker8" type="Node2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 32, 288 )
+script = ExtResource( 9 )

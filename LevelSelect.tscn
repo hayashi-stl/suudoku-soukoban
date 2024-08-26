@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://LevelSelect.cs" type="Script" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://Level/Level Regions.json" type="Resource" id=7]
 [ext_resource path="res://Level/Level InterregionalJourney.json" type="Resource" id=8]
 [ext_resource path="res://Level/Level Nun.json" type="Resource" id=9]
+[ext_resource path="res://Level/Level Sports.json" type="Resource" id=10]
+[ext_resource path="res://Level/Level CleanUp.json" type="Resource" id=11]
+[ext_resource path="res://Level/Level Flip.json" type="Resource" id=12]
+[ext_resource path="res://Level/Level Corner.json" type="Resource" id=13]
 
 [sub_resource type="Theme" id=1]
 
@@ -67,13 +71,53 @@ Level = ExtResource( 7 )
 
 [node name="Button6" type="Button" parent="."]
 margin_left = 512.0
-margin_top = 640.0
+margin_top = 704.0
 margin_right = 960.0
-margin_bottom = 704.0
+margin_bottom = 768.0
 theme = SubResource( 5 )
 text = "Nun"
 script = ExtResource( 3 )
 Level = ExtResource( 9 )
+
+[node name="Button7" type="Button" parent="."]
+margin_left = 960.0
+margin_top = 704.0
+margin_right = 1408.0
+margin_bottom = 768.0
+theme = SubResource( 5 )
+text = "Sports"
+script = ExtResource( 3 )
+Level = ExtResource( 10 )
+
+[node name="Button9" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 768.0
+margin_right = 960.0
+margin_bottom = 832.0
+theme = SubResource( 5 )
+text = "Flip"
+script = ExtResource( 3 )
+Level = ExtResource( 12 )
+
+[node name="Button10" type="Button" parent="."]
+margin_left = 960.0
+margin_top = 768.0
+margin_right = 1408.0
+margin_bottom = 832.0
+theme = SubResource( 5 )
+text = "Corner"
+script = ExtResource( 3 )
+Level = ExtResource( 13 )
+
+[node name="Button8" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 640.0
+margin_right = 960.0
+margin_bottom = 704.0
+theme = SubResource( 5 )
+text = "Clean Up"
+script = ExtResource( 3 )
+Level = ExtResource( 11 )
 
 [node name="Button5" type="Button" parent="."]
 margin_left = 960.0
@@ -97,9 +141,9 @@ Level = ExtResource( 6 )
 
 [node name="Button2" type="Button" parent="."]
 margin_left = 512.0
-margin_top = 704.0
+margin_top = 928.0
 margin_right = 960.0
-margin_bottom = 768.0
+margin_bottom = 992.0
 theme = SubResource( 5 )
 text = "Test"
 script = ExtResource( 3 )

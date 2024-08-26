@@ -85,7 +85,7 @@ public class Maker : Node2D
     Rect2I Bounds()
     {
         var cells = _map.GetUsedCells().Cast<Vector2>()
-            .Select(x => (Vector2I)x)
+            .Select(x => (Vector2I)x.Floor())
             .ToList();
 
         var minX = cells.Select(x => x.x).Min();

@@ -10,7 +10,7 @@ class RegionMap {
     public const int Invalid = -1;
 
     public RegionMap(TileMap tileMap, Func<TileMap, Vector2I, IEnumerable<Vector2I>> neighbors) {
-        HashSet<Vector2I> toVisit = tileMap.GetUsedCells().Cast<Vector2>().Select(v => (Vector2I)v)
+        HashSet<Vector2I> toVisit = tileMap.GetUsedCells().Cast<Vector2>().Select(v => (Vector2I)v.Floor())
             .Where(v => tileMap.GetCell(v.x, v.y) != (int)LevelFile.PlayTile.Wall).ToHashSet();
         HashSet<Vector2I> valid = toVisit.ToHashSet();
         var bounds = (Rect2I)tileMap.GetUsedRect();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://LevelSelect.cs" type="Script" id=2]
@@ -13,6 +13,9 @@
 [ext_resource path="res://Level/Level CleanUp.json" type="Resource" id=11]
 [ext_resource path="res://Level/Level Flip.json" type="Resource" id=12]
 [ext_resource path="res://Level/Level Corner.json" type="Resource" id=13]
+[ext_resource path="res://Level/Level Lock.json" type="Resource" id=14]
+[ext_resource path="res://Level/Level LockUnlock.json" type="Resource" id=15]
+[ext_resource path="res://Level/Level TightFlip.json" type="Resource" id=16]
 
 [sub_resource type="Theme" id=1]
 
@@ -50,19 +53,19 @@ SOUKOBAN"
 scroll_active = false
 
 [node name="Button" type="Button" parent="."]
-margin_left = 512.0
+margin_left = 256.0
 margin_top = 512.0
-margin_right = 960.0
+margin_right = 704.0
 margin_bottom = 576.0
 theme = SubResource( 5 )
-text = "First"
+text = "Lines"
 script = ExtResource( 3 )
 Level = ExtResource( 4 )
 
 [node name="Button4" type="Button" parent="."]
-margin_left = 512.0
+margin_left = 256.0
 margin_top = 576.0
-margin_right = 960.0
+margin_right = 704.0
 margin_bottom = 640.0
 theme = SubResource( 5 )
 text = "Regions"
@@ -70,9 +73,9 @@ script = ExtResource( 3 )
 Level = ExtResource( 7 )
 
 [node name="Button6" type="Button" parent="."]
-margin_left = 512.0
+margin_left = 256.0
 margin_top = 704.0
-margin_right = 960.0
+margin_right = 704.0
 margin_bottom = 768.0
 theme = SubResource( 5 )
 text = "Nun"
@@ -80,9 +83,9 @@ script = ExtResource( 3 )
 Level = ExtResource( 9 )
 
 [node name="Button7" type="Button" parent="."]
-margin_left = 960.0
+margin_left = 704.0
 margin_top = 704.0
-margin_right = 1408.0
+margin_right = 1152.0
 margin_bottom = 768.0
 theme = SubResource( 5 )
 text = "Sports"
@@ -90,9 +93,9 @@ script = ExtResource( 3 )
 Level = ExtResource( 10 )
 
 [node name="Button9" type="Button" parent="."]
-margin_left = 512.0
+margin_left = 256.0
 margin_top = 768.0
-margin_right = 960.0
+margin_right = 704.0
 margin_bottom = 832.0
 theme = SubResource( 5 )
 text = "Flip"
@@ -100,19 +103,49 @@ script = ExtResource( 3 )
 Level = ExtResource( 12 )
 
 [node name="Button10" type="Button" parent="."]
-margin_left = 960.0
+margin_left = 704.0
 margin_top = 768.0
-margin_right = 1408.0
+margin_right = 1152.0
 margin_bottom = 832.0
 theme = SubResource( 5 )
 text = "Corner"
 script = ExtResource( 3 )
 Level = ExtResource( 13 )
 
+[node name="Button11" type="Button" parent="."]
+margin_left = 256.0
+margin_top = 832.0
+margin_right = 704.0
+margin_bottom = 896.0
+theme = SubResource( 5 )
+text = "Lock"
+script = ExtResource( 3 )
+Level = ExtResource( 14 )
+
+[node name="Button13" type="Button" parent="."]
+margin_left = 1280.0
+margin_top = 512.0
+margin_right = 1728.0
+margin_bottom = 576.0
+theme = SubResource( 5 )
+text = "Tight Flip"
+script = ExtResource( 3 )
+Level = ExtResource( 16 )
+
+[node name="Button12" type="Button" parent="."]
+margin_left = 704.0
+margin_top = 832.0
+margin_right = 1152.0
+margin_bottom = 896.0
+theme = SubResource( 5 )
+text = "Lock & Unlock"
+script = ExtResource( 3 )
+Level = ExtResource( 15 )
+
 [node name="Button8" type="Button" parent="."]
-margin_left = 512.0
+margin_left = 256.0
 margin_top = 640.0
-margin_right = 960.0
+margin_right = 704.0
 margin_bottom = 704.0
 theme = SubResource( 5 )
 text = "Clean Up"
@@ -120,9 +153,9 @@ script = ExtResource( 3 )
 Level = ExtResource( 11 )
 
 [node name="Button5" type="Button" parent="."]
-margin_left = 960.0
+margin_left = 704.0
 margin_top = 576.0
-margin_right = 1408.0
+margin_right = 1152.0
 margin_bottom = 640.0
 theme = SubResource( 5 )
 text = "Interregional Journey"
@@ -130,9 +163,9 @@ script = ExtResource( 3 )
 Level = ExtResource( 8 )
 
 [node name="Button3" type="Button" parent="."]
-margin_left = 960.0
+margin_left = 704.0
 margin_top = 512.0
-margin_right = 1408.0
+margin_right = 1152.0
 margin_bottom = 576.0
 theme = SubResource( 5 )
 text = "Around the Hole"

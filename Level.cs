@@ -101,6 +101,18 @@ public partial class Level : Node2D
             return level.RotateEntity(level._entitiesById[_entityId], _dest, false);
         }
     }
+
+    public class UpdateRegionMapAction : Action {
+        List<Vector2I> _wallBlockPositions;
+
+        public UpdateRegionMapAction(IEnumerable<Vector2I> wallBlockPositions) {
+            _wallBlockPositions = wallBlockPositions.ToList();
+        }
+
+        public override Action Do(Level level) {
+            return level.UpdateRegionMap(_wallBlockPositions);
+        }
+    }
             
     class BatchAction : Action {
         public enum Tag {
@@ -357,7 +369,7 @@ public partial class Level : Node2D
 
         public TweenYuuWrongEffectEntry(YuuWrongEffect.Way way, IEnumerable<int> regions, Level level, float delay) {
             _effect = Global.Effect.YuuWrong.Instance<YuuWrongEffect>();
-            _effect.Init(way, regions.Select(r => level._regionMaps[(int)way].RegionTiles(r)), level._tileMap);
+            _effect.Init(way, regions.Select(r => level._regionMaps[(int)way].RegionTiles(r)), level._tileMap, level.WallBlockPositions());
             level.AddChild(_effect);
             _delay = delay;
             _id = nextID;
@@ -687,6 +699,7 @@ public partial class Level : Node2D
 
     TileMap _tileMap;
     List<RegionMap> _regionMaps = Enumerable.Repeat(null as RegionMap, Util.EnumLength<RegionMapType>()).ToList();
+    List<Vector2I> _wallBlockPositions = new List<Vector2I>();
     enum RegionMapType {
         Row,
         Column,
@@ -802,6 +815,19 @@ public partial class Level : Node2D
 
     void RotateEntityUndoable(Entity ent, Vector3I new_dir) => _undoStack.Add(RotateEntity(ent, new_dir));
 
+    UpdateRegionMapAction UpdateRegionMap(IEnumerable<Vector2I> wallBlockPositions) {
+        var oldWallBlockPositions = _wallBlockPositions;
+        InitRegionMaps(wallBlockPositions);
+        return new UpdateRegionMapAction(oldWallBlockPositions);
+    }
+
+    void UpdateRegionMapUndoable(IEnumerable<Vector2I> wallBlockPositions) => _undoStack.Add(UpdateRegionMap(wallBlockPositions));
+
+    IEnumerable<Vector2I> WallBlockPositions() =>
+        _entriesByType[(int)Entity.EntityType.Block].entities.Values
+            .Where(e => e is Block.Ent b && b.BlockType_ == Block.BlockType.PushWall)
+            .Select(b => b.Position.XY);
+
     void SpawnParticleEffect(PackedScene effectScene, Vector3I position, Vector3I direction, float delay) {
         var effect = effectScene.Instance<ParticleEffect>();
         AddChild(effect);
@@ -848,18 +874,20 @@ public partial class Level : Node2D
         }
     }
 
-    void InitRegionMaps() {
-        _regionMaps[(int)RegionMapType.Row] = new RegionMap(_tileMap,
+    void InitRegionMaps(IEnumerable<Vector2I> wallBlockPositions) {
+        _wallBlockPositions = wallBlockPositions.ToList();
+
+        _regionMaps[(int)RegionMapType.Row] = new RegionMap(_tileMap, _wallBlockPositions,
             (t, v) => new List<Vector2I>(){ v + Vector2I.Left, v + Vector2I.Right }
                 .Where(w => t.GetCell(w.x, w.y) != (int)LevelFile.PlayTile.Wall)
         );
 
-        _regionMaps[(int)RegionMapType.Column] = new RegionMap(_tileMap,
+        _regionMaps[(int)RegionMapType.Column] = new RegionMap(_tileMap, _wallBlockPositions,
             (t, v) => new List<Vector2I>(){ v + Vector2I.Up, v + Vector2I.Down }
                 .Where(w => t.GetCell(w.x, w.y) != (int)LevelFile.PlayTile.Wall)
         );
 
-        _regionMaps[(int)RegionMapType.Region] = new RegionMap(_tileMap,
+        _regionMaps[(int)RegionMapType.Region] = new RegionMap(_tileMap, _wallBlockPositions,
             (t, v) => new List<Vector2I>(){ v + Vector2I.Up, v + Vector2I.Down, v + Vector2I.Left, v + Vector2I.Right }
                 .Where(w => t.GetCell(v.x, v.y) == t.GetCell(w.x, w.y))
         );
@@ -919,9 +947,9 @@ public partial class Level : Node2D
                 }
 
         DoBorders(_tileMap, GetNode<TileMap>("LineHorzMap"), GetNode<TileMap>("LineVertMap"));
-        InitRegionMaps();
-
         LoadInEntities(false);
+
+        InitRegionMaps(WallBlockPositions());
     }
 
     void LoadInEntities(bool undoable) {
@@ -1069,6 +1097,7 @@ public partial class Level : Node2D
         }
 
         var MovingIDs = Moving.Select(e => e.Id).ToList();
+        List<TweenEntry> failTweens = new List<TweenEntry>();
         var (success, (badYuus, badRegions)) = DoAttempt(() => {
             foreach (var e in Moving)
                 Move(e, dir, gravity);
@@ -1078,9 +1107,26 @@ public partial class Level : Node2D
                     if (e.HandleSquished())
                         DeleteEntityUndoable(e, new DefeatParams.Squish(){ Direction = dir.XY });
 
+            UpdateRegionMapUndoable(WallBlockPositions());
+
             var (badYuus_, badRegions_) = CheckSudokuRules();
             var badYuus = badYuus_.ToList();
             var badRegions = badRegions_.ToList();
+            var success = !badYuus.Any();
+            if (!success) {
+                // Calculate these with the *new* region mapping before reverting the region mapping
+                foreach (var yuuRef in badYuus)
+                    if (_entitiesById.ContainsKey(yuuRef.EntityID)) {
+                        var yuu = _entitiesById[yuuRef.EntityID].YuuAt(yuuRef.YuuIndex);
+                        failTweens.Add(new TweenYuuWrongEntry(yuu, Entity.TweenTime * 0.25f));
+                    }
+
+                for (int i = 0; i < badRegions.Count; ++i) {
+                    var regions = badRegions[i];
+                    if (regions.Any())
+                        failTweens.Add(new TweenYuuWrongEffectEntry((YuuWrongEffect.Way)i, regions, this, Entity.TweenTime * 0.25f));
+                }
+            }
             return (!badYuus.Any(), (badYuus, badRegions));
         });
 
@@ -1088,18 +1134,8 @@ public partial class Level : Node2D
         if (!success) {
             foreach (var entity in Moving)
                 _tweenGrouping.AddTween(new TweenEntityBumpPositionEntry(entity, (Vector2)dir.XY * Util.TileSize));
-                    
-            foreach (var yuuRef in badYuus)
-                if (_entitiesById.ContainsKey(yuuRef.EntityID)) {
-                    var yuu = _entitiesById[yuuRef.EntityID].YuuAt(yuuRef.YuuIndex);
-                    _tweenGrouping.AddTween(new TweenYuuWrongEntry(yuu, Entity.TweenTime * 0.25f));
-                }
-
-            for (int i = 0; i < badRegions.Count; ++i) {
-                var regions = badRegions[i];
-                if (regions.Any())
-                    _tweenGrouping.AddTween(new TweenYuuWrongEffectEntry((YuuWrongEffect.Way)i, regions, this, Entity.TweenTime * 0.25f));
-            }
+            foreach (var tween in failTweens)
+                _tweenGrouping.AddTween(tween);
         }
         
         HandleHazardousSurface(Moving);
@@ -1260,7 +1296,7 @@ public partial class Level : Node2D
         var markers = _entriesByType[(int)Entity.EntityType.Marker].entities.Values.Select(m => (Marker.Ent)m).ToList();
         var targets = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Target);
         var goals   = markers.Where(m => m.MarkerType_ == Marker.MarkerType.Goal);
-        if (targets.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e.Type == Entity.EntityType.Block)) &&
+        if (targets.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e is Block.Ent b && b.CanActivateTarget)) &&
             goals.All(m => EntryAt(m.Position + Vector3I.Back).entities.Values.Any(e => e.Type == Entity.EntityType.Player)))
         {
             newClear = true;

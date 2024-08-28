@@ -9,36 +9,47 @@ class RegionMap {
 
     public const int Invalid = -1;
 
-    public RegionMap(TileMap tileMap, Func<TileMap, Vector2I, IEnumerable<Vector2I>> neighbors) {
-        HashSet<Vector2I> toVisit = tileMap.GetUsedCells().Cast<Vector2>().Select(v => (Vector2I)v.Floor())
-            .Where(v => tileMap.GetCell(v.x, v.y) != (int)LevelFile.PlayTile.Wall).ToHashSet();
-        HashSet<Vector2I> valid = toVisit.ToHashSet();
-        var bounds = (Rect2I)tileMap.GetUsedRect();
+    public static void DoWithWalls(TileMap tileMap, IEnumerable<Vector2I> wallPositions, Action action) {
+        var oldValues = wallPositions.ToDictionary(v => v, v => tileMap.GetCell(v.x, v.y));
+        foreach (var pair in oldValues)
+            tileMap.SetCell(pair.Key.x, pair.Key.y, (int)LevelFile.PlayTile.Wall);
+        action();
+        foreach (var pair in oldValues)
+            tileMap.SetCell(pair.Key.x, pair.Key.y, pair.Value);
+    }
 
-        // Separate positions set to handle going through illegal positions
-        HashSet<Vector2I> positions = Enumerable.Range(bounds.Position.y, bounds.Size.y)
-            .SelectMany(y => Enumerable.Range(bounds.Position.x, bounds.Size.x).Select(x => new Vector2I(x, y)))
-            .ToHashSet();
+    public RegionMap(TileMap tileMap, IEnumerable<Vector2I> wallPositions, Func<TileMap, Vector2I, IEnumerable<Vector2I>> neighbors) {
+        DoWithWalls(tileMap, wallPositions, () => {
+            HashSet<Vector2I> toVisit = tileMap.GetUsedCells().Cast<Vector2>().Select(v => (Vector2I)v.Floor())
+                .Where(v => tileMap.GetCell(v.x, v.y) != (int)LevelFile.PlayTile.Wall).ToHashSet();
+            HashSet<Vector2I> valid = toVisit.ToHashSet();
+            var bounds = (Rect2I)tileMap.GetUsedRect();
 
-        while (toVisit.Count > 0) {
-            _regions.Add(new List<Vector2I>());
-            var stack = new List<Vector2I>(){ toVisit.First() };
-            while (Util.TryPop(stack, out var cell)) {
-                if (!positions.Remove(cell))
-                    continue;
-                toVisit.Remove(cell);
-                if (valid.Contains(cell)) {
-                    _regions.Last().Add(cell);
-                    _regionIndexes[cell] = _regions.Count - 1;
+            // Separate positions set to handle going through illegal positions
+            HashSet<Vector2I> positions = Enumerable.Range(bounds.Position.y, bounds.Size.y)
+                .SelectMany(y => Enumerable.Range(bounds.Position.x, bounds.Size.x).Select(x => new Vector2I(x, y)))
+                .ToHashSet();
+
+            while (toVisit.Count > 0) {
+                _regions.Add(new List<Vector2I>());
+                var stack = new List<Vector2I>(){ toVisit.First() };
+                while (Util.TryPop(stack, out var cell)) {
+                    if (!positions.Remove(cell))
+                        continue;
+                    toVisit.Remove(cell);
+                    if (valid.Contains(cell)) {
+                        _regions.Last().Add(cell);
+                        _regionIndexes[cell] = _regions.Count - 1;
+                    }
+                    stack.AddRange(neighbors(tileMap, cell).Where(v => bounds.HasPoint(v)));
                 }
-                stack.AddRange(neighbors(tileMap, cell).Where(v => bounds.HasPoint(v)));
             }
-        }
 
-        //GD.Print("");
-        //foreach (var region in _regions) {
-        //    GD.Print(string.Join(", ", region.Select(v => $"{v}")));
-        //}
+            //GD.Print("");
+            //foreach (var region in _regions) {
+            //    GD.Print(string.Join(", ", region.Select(v => $"{v}")));
+            //}
+        });
     }
 
     public IEnumerable<Vector2I> RegionTiles(int index) {

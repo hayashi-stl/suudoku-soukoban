@@ -9,6 +9,7 @@ public partial class Block : EntityNode2D
 {
     public enum BlockType {
         Push,
+        PushWall,
     }
 
     List<Sprite> _activeVisuals = new List<Sprite>();
@@ -61,6 +62,7 @@ public partial class Block : EntityNode2D
         _activeVisuals.ForEach(m => m.Visible = false);
         var visualNames = Type switch {
             BlockType.Push => new List<string>(){ "%Push" },
+            BlockType.PushWall => new List<string>(){ "%PushWall" },
             _ => throw new InvalidEnumArgumentException()
         };
         _activeVisuals = visualNames.Select(m => GetNode<Sprite>(m)).ToList();
@@ -119,5 +121,7 @@ public partial class Block : EntityNode2D
                     HasYuu = ThisNode.HasYuu,
                 });
         }
+
+        public bool CanActivateTarget => BlockType_ != BlockType.PushWall;
     }
 }

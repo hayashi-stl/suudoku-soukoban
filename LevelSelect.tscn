@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://LevelSelect.cs" type="Script" id=2]
@@ -16,6 +16,9 @@
 [ext_resource path="res://Level/Level Lock.json" type="Resource" id=14]
 [ext_resource path="res://Level/Level LockUnlock.json" type="Resource" id=15]
 [ext_resource path="res://Level/Level TightFlip.json" type="Resource" id=16]
+[ext_resource path="res://Level/Level TheCross.json" type="Resource" id=17]
+[ext_resource path="res://Level/Level IWillRescueU.json" type="Resource" id=18]
+[ext_resource path="res://Level/Level RailLogic.json" type="Resource" id=19]
 
 [sub_resource type="Theme" id=1]
 
@@ -131,6 +134,36 @@ theme = SubResource( 5 )
 text = "Tight Flip"
 script = ExtResource( 3 )
 Level = ExtResource( 16 )
+
+[node name="Button14" type="Button" parent="."]
+margin_left = 1280.0
+margin_top = 576.0
+margin_right = 1728.0
+margin_bottom = 640.0
+theme = SubResource( 5 )
+text = "The Cross"
+script = ExtResource( 3 )
+Level = ExtResource( 17 )
+
+[node name="Button15" type="Button" parent="."]
+margin_left = 1280.0
+margin_top = 640.0
+margin_right = 1728.0
+margin_bottom = 704.0
+theme = SubResource( 5 )
+text = "I Will Rescue U"
+script = ExtResource( 3 )
+Level = ExtResource( 18 )
+
+[node name="Button16" type="Button" parent="."]
+margin_left = 1280.0
+margin_top = 704.0
+margin_right = 1728.0
+margin_bottom = 768.0
+theme = SubResource( 5 )
+text = "Regions"
+script = ExtResource( 3 )
+Level = ExtResource( 19 )
 
 [node name="Button12" type="Button" parent="."]
 margin_left = 704.0

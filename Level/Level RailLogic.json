@@ -1,0 +1,203 @@
+{
+  "Name": "Rail Logic",
+  "Controls": "",
+  "Base": [0, 0, 0],
+  "Size": [11, 8, 2],
+  "SublevelPaths": [],
+  "Map": [
+      0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+      2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2,
+      0, 3, 1, 2, 0, 0, 0, 2, 3, 1, 0,
+      0, 3, 1, 2, 0, 0, 0, 2, 3, 1, 0,
+      2, 3, 1, 2, 0, 1, 0, 2, 3, 1, 2,
+      0, 3, 1, 2, 2, 2, 2, 2, 3, 1, 0,
+      0, 3, 1, 2, 2, 2, 2, 2, 3, 1, 0,
+      0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ],
+  "Entities": [
+    {
+      "Position": [4, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Player"
+      }
+    },
+    {
+      "Position": [5, 4, 1],
+      "Direction": [0, -1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [0, 4, 1],
+      "Direction": [0, -1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [1, 2, 1],
+      "Direction": [0, -1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [9, 2, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [9, 6, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [1, 6, 1],
+      "Direction": [0, -1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [10, 4, 1],
+      "Direction": [0, -1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [2, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "PushWall",
+        "HasYuu": false
+      }
+    },
+    {
+      "Position": [1, 4, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "PushWall",
+        "HasYuu": false
+      }
+    },
+    {
+      "Position": [9, 4, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "PushWall",
+        "HasYuu": false
+      }
+    },
+    {
+      "Position": [8, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "PushWall",
+        "HasYuu": false
+      }
+    },
+    {
+      "Position": [5, 7, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [10, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [0, 1, 1],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Block",
+        "Type": "Push",
+        "HasYuu": true
+      }
+    },
+    {
+      "Position": [2, 1, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    },
+    {
+      "Position": [8, 6, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Goal"
+      }
+    },
+    {
+      "Position": [8, 5, 0],
+      "Direction": [0, 1, 0],
+      "Gravity": [0, 0, -1],
+      "CustomData": {
+        "$Type": "Marker",
+        "Type": "Target"
+      }
+    }
+  ]
+}

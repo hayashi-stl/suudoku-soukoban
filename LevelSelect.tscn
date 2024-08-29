@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Counter.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://LevelSelect.cs" type="Script" id=2]
@@ -19,6 +19,8 @@
 [ext_resource path="res://Level/Level TheCross.json" type="Resource" id=17]
 [ext_resource path="res://Level/Level IWillRescueU.json" type="Resource" id=18]
 [ext_resource path="res://Level/Level RailLogic.json" type="Resource" id=19]
+[ext_resource path="res://Level/Level Rail.json" type="Resource" id=20]
+[ext_resource path="res://Level/Level TiltedPencil.json" type="Resource" id=21]
 
 [sub_resource type="Theme" id=1]
 
@@ -157,13 +159,33 @@ Level = ExtResource( 18 )
 
 [node name="Button16" type="Button" parent="."]
 margin_left = 1280.0
+margin_top = 832.0
+margin_right = 1728.0
+margin_bottom = 896.0
+theme = SubResource( 5 )
+text = "Rail Logic"
+script = ExtResource( 3 )
+Level = ExtResource( 19 )
+
+[node name="Button17" type="Button" parent="."]
+margin_left = 1280.0
 margin_top = 704.0
 margin_right = 1728.0
 margin_bottom = 768.0
 theme = SubResource( 5 )
-text = "Regions"
+text = "Rail"
 script = ExtResource( 3 )
-Level = ExtResource( 19 )
+Level = ExtResource( 20 )
+
+[node name="Button18" type="Button" parent="."]
+margin_left = 1280.0
+margin_top = 768.0
+margin_right = 1728.0
+margin_bottom = 832.0
+theme = SubResource( 5 )
+text = "Rail"
+script = ExtResource( 3 )
+Level = ExtResource( 21 )
 
 [node name="Button12" type="Button" parent="."]
 margin_left = 704.0

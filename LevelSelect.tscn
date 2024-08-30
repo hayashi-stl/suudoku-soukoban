@@ -183,7 +183,7 @@ margin_top = 768.0
 margin_right = 1728.0
 margin_bottom = 832.0
 theme = SubResource( 5 )
-text = "Rail"
+text = "Tilted Pencil"
 script = ExtResource( 3 )
 Level = ExtResource( 21 )
 

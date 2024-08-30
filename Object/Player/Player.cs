@@ -40,6 +40,10 @@ public partial class Player : EntityNode2D
         //}
     }
         
+    public override void OnTargetStateChanged(bool active) {
+        _activeVisual.Modulate = active ? new Color(0.7f, 1.0f, 1.0f) : new Color(1.0f, 1.0f, 1.0f);
+    }
+
     public static EntityNode2D SpawnNode(LevelFile.PlayerFile file) {
         return Global.Scene.Player.Instance<Player>();
     }

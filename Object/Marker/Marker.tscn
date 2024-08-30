@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Object/Marker/Marker.cs" type="Script" id=1]
 [ext_resource path="res://Object/Marker/Target.png" type="Texture" id=2]
 [ext_resource path="res://Object/Marker/Goal.png" type="Texture" id=3]
+[ext_resource path="res://Object/Marker/RotateCCW.png" type="Texture" id=4]
+[ext_resource path="res://Object/Marker/Rotate180.png" type="Texture" id=5]
+[ext_resource path="res://Object/Marker/RotateCW.png" type="Texture" id=6]
 
 [node name="Marker" type="Node2D"]
 script = ExtResource( 1 )
@@ -17,6 +20,24 @@ unique_name_in_owner = true
 visible = false
 z_index = 13
 texture = ExtResource( 3 )
+
+[node name="RotateCW" type="Sprite" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 13
+texture = ExtResource( 6 )
+
+[node name="Rotate180" type="Sprite" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 13
+texture = ExtResource( 5 )
+
+[node name="RotateCCW" type="Sprite" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 13
+texture = ExtResource( 4 )
 
 [node name="NoRotating" type="Node2D" parent="."]
 unique_name_in_owner = true

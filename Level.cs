@@ -34,6 +34,10 @@ public partial class Level : Node2D
             return entities.Values.Where(ent => ent.EntityNode != null && ent.IsBlock(dir));
         }
             
+        public IEnumerable<Marker.Ent> Markers() {
+            return entities.Values.Where(ent => ent is Marker.Ent).Select(e => (Marker.Ent)e);
+        }
+            
         // Get entities that meet a certain condition of type Ent->bool
         public IEnumerable<Entity> Filter(Func<Entity, bool> condition) {
             return entities.Values.Where(condition);
@@ -1137,10 +1141,19 @@ public partial class Level : Node2D
             foreach (var tween in failTweens)
                 _tweenGrouping.AddTween(tween);
         }
+
+        foreach (var entity in Moving) {
+            var below = EntryAt(entity.Position + Vector3I.Forward).Markers();
+            bool onTarget = (entity is Player.Ent && below.Any(m => m.MarkerType_ == Marker.MarkerType.Goal)) ||
+                (entity is Block.Ent b && b.CanActivateTarget && below.Any(m => m.MarkerType_ == Marker.MarkerType.Target));
+            _tweenGrouping.AddTween(new TweenEntityEffectEntry(entity, new EntityEffect.OnTargetStateChanged(){ Active = onTarget }, Entity.TweenTime / 2));
+        }
         
         HandleHazardousSurface(Moving);
         return Moving;
     }
+
+    //List<Entity> AttemptRotate()
 
 
     // Objects fall inward, up, down, left, or right.

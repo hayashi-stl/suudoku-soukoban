@@ -85,6 +85,11 @@ public partial class Block : EntityNode2D
     public override void OnEntered() {
     }
 
+    public override void OnTargetStateChanged(bool active) {
+        foreach (var visual in _activeVisuals)
+            visual.Modulate = active ? new Color(0.7f, 1.0f, 1.0f) : new Color(1.0f, 1.0f, 1.0f);
+    }
+
     public static EntityNode2D SpawnNode(LevelFile.BlockFile file) {
         var scene = Global.Scene.Block.Instance<Block>();
         scene.Type = file.Type;

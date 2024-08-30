@@ -10,6 +10,9 @@ public partial class Marker : EntityNode2D
     public enum MarkerType {
         Target,
         Goal,
+        RotateCW,
+        Rotate180,
+        RotateCCW,
         Exit,
         ExitParallel,
     }
@@ -70,6 +73,9 @@ public partial class Marker : EntityNode2D
         var visualNames = Type switch {
             MarkerType.Target => new List<string>(){ "%Target" },
             MarkerType.Goal => new List<string>(){ "%Goal" },
+            MarkerType.RotateCW => new List<string>(){ "%RotateCW" },
+            MarkerType.Rotate180 => new List<string>(){ "%Rotate180" },
+            MarkerType.RotateCCW => new List<string>(){ "%RotateCCW" },
             MarkerType.Exit => new List<string>(){ "%Exit Swirl" },
             MarkerType.ExitParallel => new List<string>(){ "%ExitParallel Flow" },
             _ => throw new InvalidEnumArgumentException()

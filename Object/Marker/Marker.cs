@@ -117,6 +117,22 @@ public partial class Marker : EntityNode2D
 
         public bool IsExit => ThisNode.IsExit;
 
+        public bool IsRotator => MarkerType_ == MarkerType.RotateCW || MarkerType_ == MarkerType.Rotate180 || MarkerType_ == MarkerType.RotateCCW;
+
+        public Vector2I Rotated(Vector2I v) => MarkerType_ switch {
+            MarkerType.RotateCW => v.Perpendicular(),
+            MarkerType.Rotate180 => -v,
+            MarkerType.RotateCCW => -v.Perpendicular(),
+            _ => throw new InvalidEnumArgumentException()
+        };
+
+        public Vector2I InvRotated(Vector2I v) => MarkerType_ switch {
+            MarkerType.RotateCW => -v.Perpendicular(),
+            MarkerType.Rotate180 => -v,
+            MarkerType.RotateCCW => v.Perpendicular(),
+            _ => throw new InvalidEnumArgumentException()
+        };
+
         public override Vector3I Gravity => Vector3I.Zero;
 
         public override bool IsFixed() => true;

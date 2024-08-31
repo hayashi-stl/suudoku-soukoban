@@ -1153,7 +1153,46 @@ public partial class Level : Node2D
         return Moving;
     }
 
-    //List<Entity> AttemptRotate()
+    void DoTileRotation() {
+        var rotators = _entriesByType[(int)Entity.EntityType.Marker].Markers().Where(m => m.IsRotator);
+        var rotated = new HashSet<Entity>();
+        var rotatorMap = new Dictionary<Entity, Marker.Ent>();
+        var (success, blah) = DoAttempt(() => {
+            foreach (var rotator in rotators) {
+                var tiles = EntryAt(rotator.Position + Vector3I.Back).entities.Values;
+                foreach (var ent in tiles) {
+                    var newDir = rotator.Rotated(ent.Direction.XY);
+                    RotateEntity(ent, new Vector3I(newDir.x, newDir.y, 0));
+                    rotated.Add(ent);
+                    rotatorMap[ent] = rotator;
+                }
+            }
+
+            var badSequence = new List<(IEnumerable<(int EntityID, int YuuIndex)> BadYuus, IEnumerable<IEnumerable<int>> BadRegions)>();
+            while (true) {
+                var (badYuus_, badRegions_) = CheckSudokuRules();
+                var rotatedBadYuus = badYuus_.Where(u => rotated.Contains(_entitiesById[u.EntityID])).ToList();
+                if (!rotatedBadYuus.Any())
+                    break;
+                badSequence.Add((rotatedBadYuus, badRegions_));
+                var badEntities = rotatedBadYuus.Select(u => _entitiesById[u.EntityID]).ToHashSet();
+                foreach (var ent in badEntities) {
+                    var newDir = rotatorMap[ent].InvRotated(ent.Direction.XY);
+                    RotateEntity(ent, new Vector3I(newDir.x, newDir.y, 0));
+                }
+                rotated.RemoveWhere(e => badEntities.Contains(e));
+            }
+            return (badSequence.Any(), badSequence);
+        });
+
+        if (success)
+            return;
+
+        foreach (var ent in rotated) {
+            var newDir = rotatorMap[ent].Rotated(ent.Direction.XY);
+            RotateEntity(ent, new Vector3I(newDir.x, newDir.y, 0));
+        }
+    }
 
 
     // Objects fall inward, up, down, left, or right.
@@ -1352,6 +1391,7 @@ public partial class Level : Node2D
             ReturnLevel();
         } {
             MovePlayers(input);
+            DoTileRotation();
             HandleGravity();
         }
                     
